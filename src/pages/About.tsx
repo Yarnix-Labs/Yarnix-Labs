@@ -1,9 +1,10 @@
-import { Target, Lightbulb, Users, ArrowRight, Github, Linkedin, Globe, Sparkles, Rocket, Heart } from "lucide-react";
+import { Target, Lightbulb, Users, ArrowRight, Github, Linkedin, Globe, Sparkles, Rocket, Heart, Quote, Star } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import ParticleMeteorBackground from "@/components/ParticleMeteorBackground";
 import AnimatedNetwork from "@/components/AnimatedNetwork";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useTestimonials } from "@/hooks/useTestimonials";
 import teamMember1 from "@/assets/team-member-1.png";
 import teamMember2 from "@/assets/team-member-2.png";
 import teamMember3 from "@/assets/team-member-3.png";
@@ -71,8 +72,11 @@ const fadeUp = {
   }),
 };
 
-const About = () => (
-  <div>
+const About = () => {
+  const { testimonials, loading, error } = useTestimonials();
+
+  return (
+    <div>
     {/* Hero */}
     <section
       className="relative min-h-[55vh] flex items-center pt-20 text-white overflow-hidden"
@@ -276,6 +280,94 @@ const About = () => (
             </motion.div>
           ))}
         </div>
+      </div>
+    </section>
+
+    {/* Testimonials */}
+    <section className="py-20 md:py-28 relative overflow-hidden bg-white">
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute w-[600px] h-[600px] -top-48 -right-48 rounded-full blur-[120px] animate-[services-glow-1_8s_ease-in-out_infinite]" style={{ background: "rgba(16,185,129,0.15)" }} />
+        <div className="absolute w-[500px] h-[500px] -bottom-40 -left-40 rounded-full blur-[100px] animate-[services-glow-2_10s_ease-in-out_infinite]" style={{ background: "rgba(5,150,105,0.12)" }} />
+        <div className="absolute w-[400px] h-[400px] top-1/3 left-1/2 -translate-x-1/2 rounded-full blur-[90px] animate-[services-glow-3_12s_ease-in-out_infinite]" style={{ background: "rgba(52,211,153,0.08)" }} />
+      </div>
+      <div className="container relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <SectionHeading title="Client Testimonials" subtitle="What our clients say about working with us." />
+        </motion.div>
+        
+        {loading ? (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className="animate-pulse">
+                <div className="rounded-2xl border border-gray-200 bg-white/80 backdrop-blur-sm p-8 h-full">
+                  <div className="flex items-center gap-1 mb-4">
+                    {[...Array(5)].map((_, j) => (
+                      <div key={j} className="w-4 h-4 bg-gray-200 rounded-full" />
+                    ))}
+                  </div>
+                  <div className="h-4 bg-gray-200 rounded w-full mb-3" />
+                  <div className="h-3 bg-gray-200 rounded w-3/4 mb-4" />
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-gray-200 rounded-full" />
+                    <div>
+                      <div className="h-4 bg-gray-200 rounded w-24 mb-2" />
+                      <div className="h-3 bg-gray-200 rounded w-32" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : error ? (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">Failed to load testimonials</p>
+          </div>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {testimonials.slice(0, 6).map((testimonial, i) => (
+              <motion.div
+                key={testimonial._id}
+                className="rounded-2xl border border-gray-200 bg-white/80 backdrop-blur-sm p-8 hover:-translate-y-2 transition-all duration-300 hover:border-emerald-500/40 hover:shadow-xl hover:shadow-emerald-500/10 group"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+              >
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(5)].map((_, j) => (
+                    <Star 
+                      key={j} 
+                      size={16} 
+                      className={j < (testimonial.rating || 5) ? "text-yellow-400 fill-yellow-400" : "text-gray-300"} 
+                    />
+                  ))}
+                </div>
+                <blockquote className="text-gray-700 leading-relaxed mb-6 italic">
+                  "{testimonial.content}"
+                </blockquote>
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center">
+                    <span className="text-emerald-600 font-semibold text-lg">
+                      {testimonial.name.charAt(0)}
+                    </span>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-gray-900">{testimonial.name}</p>
+                    <p className="text-sm text-gray-500">{testimonial.role}</p>
+                    {testimonial.company && (
+                      <p className="text-xs text-emerald-600 font-medium">{testimonial.company}</p>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
 

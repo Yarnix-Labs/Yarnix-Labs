@@ -1,8 +1,10 @@
-import { Bot, Globe, Cog, Server, Smartphone, Search, Megaphone, ArrowRight } from "lucide-react";
+import { Bot, Globe, Cog, Server, Smartphone, Search, Megaphone, ArrowRight, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import ParticleMeteorBackground from "@/components/ParticleMeteorBackground";
 import AnimatedGears from "@/components/AnimatedGears";
+import SectionHeading from "@/components/SectionHeading";
+import { useProjects } from "@/hooks/useProjects";
 import serviceAi from "@/assets/service-ai.png";
 import serviceAutomation from "@/assets/service-automation.png";
 import serviceWeb from "@/assets/service-web.png";
@@ -13,28 +15,17 @@ import serviceMarketing from "@/assets/service-marketing.png";
 
 const containerVariants = {
   hidden: { opacity: 0 },
-  visible: (i = 0) => ({
-    opacity: 1,
-    transition: { staggerChildren: 0.08, delayChildren: i * 0.1 },
-  }),
+  visible: { opacity: 1 },
 };
 
 const itemVariants = {
   hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
-  },
+  visible: { opacity: 1, y: 0 },
 };
 
 const cardVariants = {
   hidden: { opacity: 0, y: 40 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, delay: i * 0.06, ease: [0.25, 0.46, 0.45, 0.94] },
-  }),
+  visible: { opacity: 1, y: 0 },
 };
 
 const services = [
@@ -89,7 +80,10 @@ const services = [
   },
 ];
 
-const Services = () => (
+const Services = () => {
+  const { projects, loading } = useProjects();
+
+  return (
   <div>
     {/* Hero */}
     <section className="relative min-h-[50vh] flex items-center pt-20 text-white overflow-hidden"
@@ -175,7 +169,7 @@ const Services = () => (
                 </p>
                 <motion.div
                   className="flex flex-wrap gap-2"
-                  variants={containerVariants}
+                  variants={itemVariants}
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true }}
@@ -213,6 +207,81 @@ const Services = () => (
             </motion.article>
           );
         })}
+      </div>
+    </section>
+
+    {/* Projects Showcase */}
+    <section className="py-20 md:py-28 bg-card/30">
+      <div className="container">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <SectionHeading title="Recent Projects" subtitle="See our latest work in action." />
+        </motion.div>
+        <div className="grid md:grid-cols-3 gap-8 mt-10">
+          {loading ? (
+            [...Array(3)].map((_, i) => (
+              <div key={i} className="animate-pulse">
+                <div className="group relative rounded-2xl overflow-hidden" style={{ background: 'linear-gradient(145deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)' }}>
+                  <div className="h-48 bg-gray-200" />
+                  <div className="p-6" style={{ background: 'linear-gradient(180deg, #0f1f19 0%, #0b1411 100%)' }}>
+                    <div className="h-4 bg-gray-300 rounded w-3/4 mb-4" />
+                    <div className="h-3 bg-gray-300 rounded w-full mb-4" />
+                    <div className="flex gap-2 mb-4">
+                      <div className="h-3 bg-gray-300 rounded w-16" />
+                      <div className="h-3 bg-gray-300 rounded w-20" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            projects?.slice(0, 3).map((project) => (
+              <div key={project._id} className="group relative rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-1" style={{ background: 'linear-gradient(145deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)' }}>
+                <div className="absolute inset-0 rounded-2xl border border-white/[0.06] group-hover:border-emerald-500/20 transition-colors duration-500 pointer-events-none z-10" />
+                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.05), 0 0 40px -10px rgba(16,185,129,0.1)' }} />
+                <div className="relative h-48 overflow-hidden bg-black/20">
+                  <img 
+                    src={project.image?.asset?._ref ? `https://cdn.sanity.io/images/v7q2gijs/production/${project.image.asset._ref.replace('image-', '').replace('-jpg', '.jpg').replace('-png', '.png').replace('-webp', '.webp')}` : '/placeholder.jpg'} 
+                    alt={project.title} 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-95" 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0b1411] via-[#0b1411]/40 to-transparent" />
+                  {project.category && (
+                    <span className="absolute top-3 left-3 text-[10px] uppercase tracking-widest px-3 py-1 rounded-full bg-white/[0.06] border border-white/[0.08] text-white/50 font-medium backdrop-blur-md">
+                      {project.category.title}
+                    </span>
+                  )}
+                </div>
+                <div className="p-6" style={{ background: 'linear-gradient(180deg, #0f1f19 0%, #0b1411 100%)' }}>
+                  <h3 className="font-sans font-semibold text-sm text-white/80 mb-1.5 tracking-wide uppercase">{project.title}</h3>
+                  <p className="text-xs text-white/30 mb-4 leading-relaxed line-clamp-2">{project.description}</p>
+                  <div className="flex flex-wrap gap-1.5 mb-4">
+                    {project.techStack?.slice(0, 3).map((tech) => (
+                      <span key={tech} className="text-[10px] px-2 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.06] text-white/40 font-medium">{tech}</span>
+                    ))}
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Link to={`/projects/${project.slug.current}`} className="inline-flex items-center gap-1.5 text-xs text-emerald-400/70 font-medium hover:text-emerald-300 transition-colors uppercase tracking-wider">
+                      View Details <ExternalLink size={12} />
+                    </Link>
+                    <button className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400/80 font-medium hover:bg-emerald-500/20 hover:text-emerald-300 transition-all uppercase tracking-wider">
+                      Live Demo <ArrowRight size={12} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+        <div className="text-center mt-10">
+          <Link to="/projects" className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-black font-semibold px-8 py-3 rounded-full text-sm transition-colors">
+            View All Projects <ArrowRight size={16} />
+          </Link>
+        </div>
       </div>
     </section>
 
@@ -254,5 +323,4 @@ const Services = () => (
     </section>
   </div>
 );
-
 export default Services;

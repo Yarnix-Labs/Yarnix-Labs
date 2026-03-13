@@ -1,4 +1,4 @@
-import { sanityClient } from '../lib/sanity'
+import { sanityClient } from '@/lib/sanity'
 import { Post, Category } from '../types'
 
 export const postService = {
