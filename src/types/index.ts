@@ -50,6 +50,7 @@ export interface Post {
   categories?: Category[]
   content?: any[]
   status?: string
+  featured?: boolean
 }
 
 export interface ProjectCategory {

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Bot, Globe, Cog, Server, Smartphone, Search, Megaphone, ExternalLink, Calendar, Clock, Star, Quote } from "lucide-react";
+import { motion } from "framer-motion";
 import SectionHeading from "@/components/SectionHeading";
 import AnimatedEarth from "@/components/AnimatedEarth";
 import ParticleMeteorBackground from "@/components/ParticleMeteorBackground";
@@ -364,5 +365,5 @@ const Index = () => {
     </section>
   </div>
 );
-
+};
 export default Index;

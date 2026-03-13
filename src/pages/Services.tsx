@@ -200,7 +200,7 @@ const Services = () => {
           <SectionHeading title="Recent Projects" subtitle="See our latest work in action." />
         </motion.div>
         <div className="grid md:grid-cols-3 gap-8 mt-10">
-          {loading ? (
+          {projectsLoading ? (
             [...Array(3)].map((_, i) => (
               <div key={i} className="animate-pulse">
                 <div className="group relative rounded-2xl overflow-hidden" style={{ background: 'linear-gradient(145deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)' }}>
@@ -301,5 +301,5 @@ const Services = () => {
     </section>
   </div>
 );
-
+};
 export default Services;
