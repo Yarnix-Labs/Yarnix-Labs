@@ -101,4 +101,17 @@ export interface Testimonial {
   featured?: boolean
 }
 
+export interface TeamMember {
+  _id: string
+  _type: 'teamMember'
+  name: string
+  role: string
+  description: string
+  image: SanityImageSource
+  github?: string
+  linkedin?: string
+  portfolio?: string
+  order?: number
+}
+
 export type BlockContent = any

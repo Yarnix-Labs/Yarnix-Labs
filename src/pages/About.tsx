@@ -5,9 +5,7 @@ import AnimatedNetwork from "@/components/AnimatedNetwork";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useTestimonials } from "@/hooks/useTestimonials";
-import teamMember1 from "@/assets/team-member-1.png";
-import teamMember2 from "@/assets/team-member-2.png";
-import teamMember3 from "@/assets/team-member-3.png";
+import { useTeam } from "@/hooks/useTeam";
 
 const stats = [
   { value: "2025", label: "Founded", icon: Rocket },
@@ -33,35 +31,6 @@ const values = [
   },
 ];
 
-const team = [
-  {
-    name: "Nirmal Wishwantha",
-    role: "Co-Founder & Technical Lead",
-    desc: "Innovative full-stack developer and technology enthusiast with a passion for creating modern digital products.",
-    image: teamMember1,
-    github: "#",
-    linkedin: "#",
-    portfolio: "#",
-  },
-  {
-    name: "Jeewantha Sandupa",
-    role: "Co-Founder & DevOps Engineer",
-    desc: "Experienced DevOps engineer and cloud specialist with expertise in building scalable, resilient systems.",
-    image: teamMember2,
-    github: "#",
-    linkedin: "#",
-    portfolio: "#",
-  },
-  {
-    name: "Yasith Nawanjana",
-    role: "Co-Founder & AI/ML Engineer",
-    desc: "Creative AI and machine learning engineer with a strong background in intelligent product delivery.",
-    image: teamMember3,
-    github: "#",
-    linkedin: "#",
-    portfolio: "#",
-  },
-];
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -74,6 +43,7 @@ const fadeUp = {
 
 const About = () => {
   const { testimonials, loading, error } = useTestimonials();
+  const { teamMembers, loading: teamLoading, error: teamError } = useTeam();
 
   return (
     <div>
@@ -226,8 +196,26 @@ const About = () => {
         >
           <SectionHeading title="Meet the Team" subtitle="The talented people behind Yarnix Labs." />
         </motion.div>
+        {teamLoading ? (
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className="animate-pulse">
+                <div className="relative overflow-hidden rounded-2xl mb-5 aspect-[3/4] border border-border/30 bg-muted" />
+                <div className="text-center">
+                  <div className="h-6 bg-muted rounded w-3/4 mx-auto mb-2" />
+                  <div className="h-4 bg-muted rounded w-1/2 mx-auto mb-3" />
+                  <div className="h-3 bg-muted rounded w-full mb-4" />
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : teamError ? (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">Failed to load team members</p>
+          </div>
+        ) : (
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          {team.map((m, i) => (
+          {teamMembers.map((m, i) => (
             <motion.div
               key={m.name}
               className="group"
@@ -240,7 +228,7 @@ const About = () => {
               {/* Image with overlay */}
               <div className="relative overflow-hidden rounded-2xl mb-5 aspect-[3/4] border border-border/30 group-hover:border-emerald-500/30 transition-all duration-500 shadow-lg group-hover:shadow-emerald-500/10">
                 <img
-                  src={m.image}
+                  src={m.image?.asset?._ref ? `https://cdn.sanity.io/images/v7q2gijs/production/${m.image.asset._ref.replace('image-', '').replace('-jpg', '.jpg').replace('-png', '.png').replace('-webp', '.webp')}` : '/placeholder.jpg'}
                   alt={m.name}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
@@ -263,7 +251,7 @@ const About = () => {
               <div className="text-center">
                 <h4 className="font-bold text-lg">{m.name}</h4>
                 <p className="text-sm text-emerald-400 font-medium mt-1">{m.role}</p>
-                <p className="text-sm text-muted-foreground leading-relaxed mt-3">{m.desc}</p>
+                <p className="text-sm text-muted-foreground leading-relaxed mt-3">{m.description}</p>
                 {/* Static icons below image */}
                 <div className="flex justify-center gap-3 mt-4">
                   <a href={m.portfolio} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 hover:bg-emerald-500 hover:text-white transition-all duration-300" title="Portfolio">
