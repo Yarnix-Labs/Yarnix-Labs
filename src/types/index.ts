@@ -23,48 +23,40 @@ export interface Author {
   _id: string
   _type: 'author'
   name: string
-  slug: {
-    current: string
-  }
+  slug: { current: string }
   image?: SanityImageSource
-  bio?: any[]
+  bio?: string
 }
 
 export interface Category {
   _id: string
   _type: 'category'
   title: string
-  slug: {
-    current: string
-  }
+  slug: { current: string }
   description?: string
+  color?: string
+  order?: number
 }
 
 export interface Post {
   _id: string
-  _type: 'post' | 'blog'
+  _type: 'blog'
   title: string
-  slug: {
-    current: string
-  }
-  author: Author
-  mainImage?: SanityImageSource
+  slug: { current: string }
+  excerpt: string
   coverImage?: SanityImageSource
-  excerpt?: string
-  content?: any[]
-  categories: Category[]
   publishedAt: string
-  body?: any[]
-  featured?: boolean
+  author?: Author
+  categories?: Category[]
+  content?: any[]
+  status?: string
 }
 
 export interface ProjectCategory {
   _id: string
   _type: 'projectCategory'
   title: string
-  slug: {
-    current: string
-  }
+  slug: { current: string }
   description?: string
   color?: string
   order?: number
@@ -74,31 +66,38 @@ export interface Project {
   _id: string
   _type: 'project'
   title: string
-  slug: {
-    current: string
-  }
+  slug: { current: string }
+  description: string
   image?: SanityImageSource
-  description?: string
-  projectUrl?: string
-  githubUrl?: string
   category?: ProjectCategory
   techStack?: string[]
   featured?: boolean
+  githubUrl?: string
+  liveUrl?: string
+}
+
+export interface Service {
+  _id: string
+  _type: 'service'
+  title: string
+  slug: { current: string }
+  description: string
+  image?: SanityImageSource
+  icon: string
+  features: string[]
   order?: number
 }
 
-export interface BlockContent {
-  _type: 'block'
-  _key: string
-  style?: string
-  children: Array<{
-    _type: 'span'
-    text: string
-    marks?: string[]
-  }>
-  markDefs?: Array<{
-    _key: string
-    _type: string
-    [key: string]: any
-  }>
+export interface Testimonial {
+  _id: string
+  _type: 'testimonial'
+  name: string
+  role: string
+  company?: string
+  content: string
+  rating?: number
+  image?: SanityImageSource
+  featured?: boolean
 }
+
+export type BlockContent = any

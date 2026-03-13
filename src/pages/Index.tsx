@@ -219,7 +219,7 @@ const Index = () => {
                           }, 0);
                         }
                         return acc;
-                      }, 0) || 0) / 200))} min read}
+                      }, 0) || 0) / 200))} min read
                     </span>
                   </div>
                   <h3 className="font-sans font-semibold text-sm text-white/80 mb-1.5 tracking-wide uppercase">{post.title}</h3>

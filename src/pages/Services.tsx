@@ -5,6 +5,7 @@ import ParticleMeteorBackground from "@/components/ParticleMeteorBackground";
 import AnimatedGears from "@/components/AnimatedGears";
 import SectionHeading from "@/components/SectionHeading";
 import { useProjects } from "@/hooks/useProjects";
+import { useServices } from "@/hooks/useServices";
 import serviceAi from "@/assets/service-ai.png";
 import serviceAutomation from "@/assets/service-automation.png";
 import serviceWeb from "@/assets/service-web.png";
@@ -28,60 +29,21 @@ const cardVariants = {
   visible: { opacity: 1, y: 0 },
 };
 
-const services = [
-  {
-    icon: Bot,
-    title: "AI Tools & Solutions",
-    desc: "Custom AI models, chatbots, and intelligent automation tailored to your business needs.",
-    features: ["Custom GPT Models", "Chatbot Development", "Predictive Analytics", "Natural Language Processing"],
-    image: serviceAi,
-  },
-  {
-    icon: Cog,
-    title: "Business Automation",
-    desc: "Streamline operations with intelligent workflows that save time and reduce costs.",
-    features: ["Process Automation", "Data Integration", "Workflow Optimization", "RPA Solutions"],
-    image: serviceAutomation,
-  },
-  {
-    icon: Globe,
-    title: "Web Applications",
-    desc: "Modern, scalable web apps built with cutting-edge technologies and best practices.",
-    features: ["React & Next.js", "Progressive Web Apps", "API Development", "Cloud Architecture"],
-    image: serviceWeb,
-  },
-  {
-    icon: Server,
-    title: "DevOps Solutions",
-    desc: "Cloud infrastructure, CI/CD pipelines, and monitoring for reliable deployments.",
-    features: ["CI/CD Pipelines", "Container Orchestration", "Cloud Migration", "24/7 Monitoring"],
-    image: serviceDevops,
-  },
-  {
-    icon: Smartphone,
-    title: "Mobile Apps",
-    desc: "Native and cross-platform mobile applications that deliver seamless user experiences.",
-    features: ["iOS & Android Apps", "React Native", "Flutter Development", "App Store Optimization"],
-    image: serviceMobile,
-  },
-  {
-    icon: Search,
-    title: "Technical SEO",
-    desc: "Optimize your website's technical foundation to rank higher and drive organic traffic.",
-    features: ["Site Speed Optimization", "Schema Markup", "Core Web Vitals", "Crawl & Index Management"],
-    image: serviceSeo,
-  },
-  {
-    icon: Megaphone,
-    title: "Digital Marketing",
-    desc: "Data-driven marketing strategies that grow your brand and generate qualified leads.",
-    features: ["Social Media Marketing", "PPC Campaigns", "Content Strategy", "Analytics & Reporting"],
-    image: serviceMarketing,
-  },
-];
 
 const Services = () => {
-  const { projects, loading } = useProjects();
+  const { projects, loading: projectsLoading } = useProjects();
+  const { services, loading: servicesLoading } = useServices();
+
+  // Icon mapping for service icons
+  const iconMap = {
+    Bot,
+    Cog,
+    Globe,
+    Server,
+    Smartphone,
+    Search,
+    Megaphone,
+  };
 
   return (
   <div>
@@ -138,75 +100,91 @@ const Services = () => {
     {/* Services - Card-based alternating layout */}
     <section className="py-12 md:py-20 bg-zinc-50/50">
       <div className="container space-y-12 md:space-y-16">
-        {services.map((s, i) => {
-          const isEven = i % 2 === 0;
-          const index = String(i + 1).padStart(2, "0");
-          return (
-            <motion.article
-              key={s.title}
-              variants={cardVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-60px" }}
-              custom={i}
-              className={`group grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center rounded-3xl p-6 md:p-8 lg:p-10 transition-shadow duration-300 hover:shadow-xl hover:shadow-emerald-500/5 bg-white border border-zinc-200/80`}
-            >
-              {/* Content */}
-              <div className={`space-y-5 ${!isEven ? "md:order-2 md:pl-4" : "md:pr-4"}`}>
-                <div className="flex items-center gap-4">
-                  <span className="font-display text-4xl font-bold text-zinc-200/90 tracking-tighter tabular-nums">
-                    {index}
-                  </span>
-                  <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0">
-                    <s.icon size={22} className="text-emerald-600" strokeWidth={1.8} />
+        {servicesLoading ? (
+          <div className="text-center py-20">
+            <div className="animate-pulse inline-flex items-center gap-2">
+              <div className="w-4 h-4 bg-gray-200 rounded-full animate-pulse" />
+              <span className="text-gray-500">Loading services...</span>
+            </div>
+          </div>
+        ) : (
+          services.map((service, i) => {
+            const isEven = i % 2 === 0;
+            const index = String(i + 1).padStart(2, "0");
+            const IconComponent = iconMap[service.icon as keyof typeof iconMap];
+            
+            return (
+              <motion.article
+                key={service._id}
+                variants={cardVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-60px" }}
+                custom={i}
+                className={`group grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center rounded-3xl p-6 md:p-8 lg:p-10 transition-shadow duration-300 hover:shadow-xl hover:shadow-emerald-500/5 bg-white border border-zinc-200/80`}
+              >
+                {/* Content */}
+                <div className={`space-y-5 ${!isEven ? "md:order-2 md:pl-4" : "md:pr-4"}`}>
+                  <div className="flex items-center gap-4">
+                    <span className="font-display text-4xl font-bold text-zinc-200/90 tracking-tighter tabular-nums">
+                      {index}
+                    </span>
+                    <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0">
+                      {IconComponent && <IconComponent size={22} className="text-emerald-600" strokeWidth={1.8} />}
+                    </div>
+                  </div>
+                  <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-foreground tracking-tight">
+                    {service.title}
+                  </h2>
+                  <p className="text-muted-foreground text-sm sm:text-base leading-relaxed max-w-lg">
+                    {service.description}
+                  </p>
+                  <motion.div
+                    className="flex flex-wrap gap-2"
+                    variants={itemVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                  >
+                    {service.features.map((feature, j) => (
+                      <motion.span
+                        key={feature}
+                        variants={itemVariants}
+                        className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-zinc-100 text-zinc-600 border border-zinc-200/80"
+                      >
+                        {feature}
+                      </motion.span>
+                    ))}
+                  </motion.div>
+                  <Link
+                    to="/contact"
+                    className="inline-flex items-center gap-2 text-emerald-600 hover:text-emerald-700 font-semibold text-sm transition-colors group"
+                  >
+                    Get started
+                    <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
+                  </Link>
+                </div>
+                {/* Image */}
+                <div className={`relative overflow-hidden rounded-2xl bg-zinc-100 ${!isEven ? "md:order-1" : ""}`}>
+                  <div className="aspect-[4/3] sm:aspect-[5/3] relative">
+                    {service.image?.asset?._ref ? (
+                      <img
+                        src={`https://cdn.sanity.io/images/v7q2gijs/production/${service.image.asset._ref.replace('image-', '').replace('-jpg', '.jpg').replace('-png', '.png').replace('-webp', '.webp')}`}
+                        alt={service.title}
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-emerald-100 to-emerald-200 flex items-center justify-center">
+                        {IconComponent && <IconComponent size={48} className="text-emerald-600" />}
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none" />
                   </div>
                 </div>
-                <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-foreground tracking-tight">
-                  {s.title}
-                </h2>
-                <p className="text-muted-foreground text-sm sm:text-base leading-relaxed max-w-lg">
-                  {s.desc}
-                </p>
-                <motion.div
-                  className="flex flex-wrap gap-2"
-                  variants={itemVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  custom={i * 0.05}
-                >
-                  {s.features.map((f, j) => (
-                    <motion.span
-                      key={f}
-                      variants={itemVariants}
-                      className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-zinc-100 text-zinc-600 border border-zinc-200/80"
-                    >
-                      {f}
-                    </motion.span>
-                  ))}
-                </motion.div>
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center gap-2 text-emerald-600 hover:text-emerald-700 font-semibold text-sm transition-colors group"
-                >
-                  Get started
-                  <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
-                </Link>
-              </div>
-              {/* Image */}
-              <div className={`relative overflow-hidden rounded-2xl bg-zinc-100 ${!isEven ? "md:order-1" : ""}`}>
-                <div className="aspect-[4/3] sm:aspect-[5/3] relative">
-                  <img
-                    src={s.image}
-                    alt={s.title}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none" />
-                </div>
-              </div>
-            </motion.article>
-          );
-        })}
+              </motion.article>
+            );
+          })
+        )}
       </div>
     </section>
 
@@ -323,4 +301,5 @@ const Services = () => {
     </section>
   </div>
 );
+
 export default Services;
