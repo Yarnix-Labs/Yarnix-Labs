@@ -7,7 +7,7 @@ export default defineConfig({
   name: 'default',
   title: 'Yarnix-labs',
 
-  projectId: '6ld2locr',
+  projectId: 'v7q2gijs',
   dataset: 'production',
 
   plugins: [structureTool(), visionTool()],
