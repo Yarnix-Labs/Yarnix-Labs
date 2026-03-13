@@ -42,16 +42,20 @@ export interface Category {
 
 export interface Post {
   _id: string
-  _type: 'post'
+  _type: 'post' | 'blog'
   title: string
   slug: {
     current: string
   }
   author: Author
   mainImage?: SanityImageSource
+  coverImage?: SanityImageSource
+  excerpt?: string
+  content?: any[]
   categories: Category[]
   publishedAt: string
-  body: any[]
+  body?: any[]
+  featured?: boolean
 }
 
 export interface ProjectCategory {
