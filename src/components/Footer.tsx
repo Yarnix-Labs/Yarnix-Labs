@@ -65,7 +65,7 @@ const Footer = () => (
         {/* Links */}
         {[
           { title: "Company", links: [["About", "/about"], ["Services", "/services"], ["Projects", "/projects"], ["Contact", "/contact"]] },
-          { title: "Resources", links: [["Blog", "/blog"], ["Documentation", "#"], ["Support", "#"], ["Careers", "#"]] },
+          { title: "Resources", links: [["Blog", "/blog"], ["Documentation", "#"], ["Support", "#"], ["Admin", "/admin"], ["Careers", "#"]] },
           { title: "Legal", links: [["Privacy Policy", "#"], ["Terms of Service", "#"], ["Cookie Policy", "#"]] },
         ].map((col) => (
           <div key={col.title}>
