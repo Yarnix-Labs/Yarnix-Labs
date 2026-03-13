@@ -19,4 +19,16 @@ export default defineConfig(({ mode }) => ({
     },
     dedupe: ["react", "react-dom", "react/jsx-runtime", "three", "@react-three/fiber"],
   },
+  build: {
+    outDir: "dist",
+    sourcemap: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ["react", "react-dom"],
+          three: ["three", "@react-three/fiber", "@react-three/drei"],
+        },
+      },
+    },
+  },
 }));
