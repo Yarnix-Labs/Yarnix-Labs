@@ -2,10 +2,21 @@ import { useState, useEffect } from 'react'
 import { Project } from '../types'
 import { projectService } from '../services'
 
+interface ProjectCategory {
+  _id: string
+  title: string
+  slug: { current: string }
+  description?: string
+  color?: string
+  order?: number
+}
+
 export const useProjects = () => {
   const [projects, setProjects] = useState<Project[]>([])
+  const [categories, setCategories] = useState<ProjectCategory[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
 
   const fetchProjects = async () => {
     try {
@@ -20,14 +31,32 @@ export const useProjects = () => {
     }
   }
 
+  const fetchCategories = async () => {
+    try {
+      const data = await projectService.getAllCategories()
+      setCategories(data)
+    } catch (err) {
+      console.error('Failed to fetch categories:', err)
+    }
+  }
+
   useEffect(() => {
     fetchProjects()
+    fetchCategories()
   }, [])
 
+  const filteredProjects = selectedCategory
+    ? projects.filter(project => project.category?._id === selectedCategory)
+    : projects
+
   return {
-    projects,
+    projects: filteredProjects,
+    allProjects: projects,
+    categories,
     loading,
     error,
+    selectedCategory,
+    setSelectedCategory,
     refetch: fetchProjects
   }
 }

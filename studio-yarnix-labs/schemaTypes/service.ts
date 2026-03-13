@@ -1,17 +1,16 @@
 import {defineField, defineType} from 'sanity'
 
 export default defineType({
-  name: 'project',
-  title: 'Projects',
+  name: 'service',
+  title: 'Service',
   type: 'document',
   fields: [
     defineField({
       name: 'title',
-      title: 'Project Title',
+      title: 'Service Title',
       type: 'string',
       validation: (Rule) => Rule.required(),
     }),
-
     defineField({
       name: 'slug',
       title: 'Slug',
@@ -19,39 +18,29 @@ export default defineType({
       options: {source: 'title'},
       validation: (Rule) => Rule.required(),
     }),
-
-    defineField({
-      name: 'image',
-      title: 'Project Image',
-      type: 'image',
-      options: {hotspot: true},
-      validation: (Rule) => Rule.required(),
-    }),
-
     defineField({
       name: 'description',
       title: 'Description',
       type: 'text',
       validation: (Rule) => Rule.required(),
     }),
-
     defineField({
-      name: 'projectUrl',
-      title: 'Live Project URL',
-      type: 'url',
-    }),
-
-    defineField({
-      name: 'category',
-      title: 'Category',
-      type: 'reference',
-      to: [{type: 'projectCategory'}],
+      name: 'image',
+      title: 'Service Image',
+      type: 'image',
+      options: {hotspot: true},
       validation: (Rule) => Rule.required(),
     }),
-
     defineField({
-      name: 'techStack',
-      title: 'Tech Stack',
+      name: 'icon',
+      title: 'Icon Name',
+      type: 'string',
+      description: 'Lucide React icon name (e.g., Bot, Globe, Cog, Server, Smartphone, Search, Megaphone)',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'features',
+      title: 'Features',
       type: 'array',
       of: [{type: 'string'}],
       options: {
@@ -59,15 +48,6 @@ export default defineType({
       },
       validation: (Rule) => Rule.required(),
     }),
-
-    defineField({
-      name: 'featured',
-      title: 'Featured',
-      type: 'boolean',
-      description: 'Show this project on the homepage',
-      initialValue: false,
-    }),
-
     defineField({
       name: 'order',
       title: 'Display Order',
@@ -80,25 +60,11 @@ export default defineType({
       name: 'orderAsc',
       by: [{field: 'order', direction: 'asc'}],
     },
-    {
-      title: 'Featured First',
-      name: 'featuredDesc',
-      by: [{field: 'featured', direction: 'desc'}, {field: 'order', direction: 'asc'}],
-    },
   ],
   preview: {
     select: {
       title: 'title',
       media: 'image',
-      category: 'category.title',
-    },
-    prepare(selection) {
-      const {title, media, category} = selection
-      return {
-        title,
-        subtitle: category ? `Category: ${category}` : 'No category',
-        media,
-      }
     },
   },
 })

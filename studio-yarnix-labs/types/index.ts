@@ -54,6 +54,18 @@ export interface Post {
   body: any[]
 }
 
+export interface ProjectCategory {
+  _id: string
+  _type: 'projectCategory'
+  title: string
+  slug: {
+    current: string
+  }
+  description?: string
+  color?: string
+  order?: number
+}
+
 export interface Project {
   _id: string
   _type: 'project'
@@ -65,6 +77,10 @@ export interface Project {
   description?: string
   projectUrl?: string
   githubUrl?: string
+  category?: ProjectCategory
+  techStack?: string[]
+  featured?: boolean
+  order?: number
 }
 
 export interface BlockContent {
