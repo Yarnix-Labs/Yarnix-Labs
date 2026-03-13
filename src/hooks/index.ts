@@ -11,3 +11,7 @@ export {
   useFeaturedProjects,
   useProjectSearch
 } from './useProjects'
+
+export {
+  useContact
+} from './useContact'

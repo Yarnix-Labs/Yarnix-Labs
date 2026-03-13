@@ -302,17 +302,17 @@ const Index = () => {
                   ))}
                 </div>
                 <blockquote className="text-gray-700 leading-relaxed mb-6 italic">
-                  "{testimonial.content}"
+                  "{testimonial.content || 'No testimonial content available'}"
                 </blockquote>
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center">
                     <span className="text-emerald-600 font-semibold text-lg">
-                      {testimonial.name.charAt(0)}
+                      {testimonial.name?.charAt(0) || '?'}
                     </span>
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-900">{testimonial.name}</p>
-                    <p className="text-sm text-gray-500">{testimonial.role}</p>
+                    <p className="font-semibold text-gray-900">{testimonial.name || 'Anonymous'}</p>
+                    <p className="text-sm text-gray-500">{testimonial.role || 'Client'}</p>
                     {testimonial.company && (
                       <p className="text-xs text-emerald-600 font-medium">{testimonial.company}</p>
                     )}

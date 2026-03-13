@@ -1,18 +1,24 @@
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, MapPin, Phone, Send, Clock, ArrowRight, MessageSquare, Sparkles } from "lucide-react";
+import { Mail, MapPin, Phone, Send, Clock, ArrowRight, MessageSquare, Sparkles, LucideIcon } from "lucide-react";
 import ParticleMeteorBackground from "@/components/ParticleMeteorBackground";
 import AnimatedEnvelope from "@/components/AnimatedEnvelope";
 import { motion } from "framer-motion";
+import { useContact } from "@/hooks";
 
-const contactInfo = [
-  { icon: Mail, label: "Email", value: "yarnixlabs@gmail.com", desc: "Drop us an email anytime" },
-  { icon: Phone, label: "Phone", value: "+94 74 024 6010", desc: "Mon-Fri from 9am to 6pm" },
-  { icon: MapPin, label: "Location", value: "223/1, Welivita, Kaduwela", desc: "Come visit our office" },
-  { icon: Clock, label: "Response Time", value: "Within 24 hours", desc: "We reply fast" },
-];
+// Icon mapping for dynamic icon rendering
+const iconMap: Record<string, LucideIcon> = {
+  Mail,
+  MapPin,
+  Phone,
+  Clock,
+};
 
-const Contact = () => (
+
+const Contact = () => {
+  const { contactInfo, loading, error } = useContact();
+
+  return (
   <div>
     {/* Hero */}
     <section
@@ -72,23 +78,44 @@ const Contact = () => (
           <p className="text-gray-500">Multiple ways to get in touch with our team.</p>
         </motion.div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-5xl mx-auto">
-          {contactInfo.map((item, i) => (
-            <motion.div
-              key={item.label}
-              className="rounded-2xl border border-gray-200 bg-white/80 backdrop-blur-sm p-6 text-center hover:-translate-y-2 transition-all duration-300 hover:border-emerald-500/40 hover:shadow-xl hover:shadow-emerald-500/10 group"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-            >
-              <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mx-auto mb-4 group-hover:bg-emerald-500/20 transition-colors">
-                <item.icon size={22} className="text-emerald-500" />
+          {loading ? (
+            // Loading skeleton
+            [...Array(4)].map((_, i) => (
+              <div key={i} className="animate-pulse">
+                <div className="rounded-2xl border border-gray-200 bg-white/80 backdrop-blur-sm p-6 text-center">
+                  <div className="w-14 h-14 rounded-2xl bg-gray-200 mx-auto mb-4" />
+                  <div className="h-4 bg-gray-200 rounded w-3/4 mx-auto mb-2" />
+                  <div className="h-3 bg-gray-200 rounded w-full mb-1" />
+                  <div className="h-3 bg-gray-200 rounded w-2/3 mx-auto" />
+                </div>
               </div>
-              <p className="text-xs text-gray-400 uppercase tracking-wider mb-1">{item.label}</p>
-              <p className="font-semibold text-gray-900 text-sm">{item.value}</p>
-              <p className="text-xs text-gray-400 mt-1">{item.desc}</p>
-            </motion.div>
-          ))}
+            ))
+          ) : error ? (
+            <div className="col-span-full text-center py-12">
+              <p className="text-muted-foreground">Failed to load contact information</p>
+            </div>
+          ) : (
+            contactInfo.map((item, i) => {
+              const IconComponent = iconMap[item.icon];
+              return (
+                <motion.div
+                  key={item._id}
+                  className="rounded-2xl border border-gray-200 bg-white/80 backdrop-blur-sm p-6 text-center hover:-translate-y-2 transition-all duration-300 hover:border-emerald-500/40 hover:shadow-xl hover:shadow-emerald-500/10 group"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, duration: 0.5 }}
+                >
+                  <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mx-auto mb-4 group-hover:bg-emerald-500/20 transition-colors">
+                    {IconComponent && <IconComponent className="text-emerald-500" size={22} />}
+                  </div>
+                  <p className="text-xs text-gray-400 uppercase tracking-wider mb-1">{item.label}</p>
+                  <p className="font-semibold text-gray-900 text-sm">{item.value}</p>
+                  <p className="text-xs text-gray-400 mt-1">{item.description}</p>
+                </motion.div>
+              );
+            })
+          )}
         </div>
       </div>
     </section>
@@ -179,6 +206,7 @@ const Contact = () => (
       </div>
     </section>
   </div>
-);
+  );
+};
 
 export default Contact;

@@ -114,4 +114,14 @@ export interface TeamMember {
   order?: number
 }
 
+export interface ContactInfo {
+  _id: string
+  _type: 'contactInfo'
+  label: string
+  value: string
+  description?: string
+  icon: string
+  order?: number
+}
+
 export type BlockContent = any
