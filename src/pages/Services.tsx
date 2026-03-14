@@ -121,7 +121,7 @@ const Services = () => {
                 whileInView="visible"
                 viewport={{ once: true, margin: "-60px" }}
                 custom={i}
-                className={`group grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center rounded-3xl p-6 md:p-8 lg:p-10 transition-shadow duration-300 hover:shadow-xl hover:shadow-emerald-500/5 bg-white border border-zinc-200/80`}
+                className={`group grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center rounded-3xl p-6 md:p-8 lg:p-10 transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(16,185,129,0.15)] bg-white border border-zinc-200/80 hover:border-emerald-400/30 cursor-pointer`}
               >
                 {/* Content */}
                 <div className={`space-y-5 ${!isEven ? "md:order-2 md:pl-4" : "md:pr-4"}`}>
@@ -129,8 +129,8 @@ const Services = () => {
                     <span className="font-display text-4xl font-bold text-zinc-200/90 tracking-tighter tabular-nums">
                       {index}
                     </span>
-                    <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0">
-                      {IconComponent && <IconComponent size={22} className="text-emerald-600" strokeWidth={1.8} />}
+                    <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0 group-hover:bg-emerald-500/15 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(52,211,153,0.2)] transition-all duration-500 ease-out">
+                      {IconComponent && <IconComponent size={22} className="text-emerald-600 transition-transform duration-500 group-hover:scale-110" strokeWidth={1.8} />}
                     </div>
                   </div>
                   <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-foreground tracking-tight">

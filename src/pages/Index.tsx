@@ -80,11 +80,11 @@ const Index = () => {
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.slice(0, 4).map((s) => (
-            <div key={s.title} className="relative group rounded-2xl p-7 hover:-translate-y-2 transition-all duration-300 bg-white border border-gray-200 hover:border-emerald-500/40 hover:shadow-xl hover:shadow-emerald-500/10">
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+            <div key={s.title} className="relative group rounded-2xl p-7 hover:-translate-y-3 transition-all duration-500 ease-out bg-white border border-gray-200 hover:border-emerald-400/50 hover:shadow-[0_10px_40px_-10px_rgba(16,185,129,0.3)] cursor-pointer">
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
               <div className="relative">
-                <div className="w-14 h-14 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center mb-5 group-hover:bg-emerald-100 group-hover:border-emerald-300 transition-all duration-300">
-                  <s.icon size={26} className="text-emerald-600" />
+                <div className="w-14 h-14 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center mb-5 group-hover:bg-emerald-100 group-hover:border-emerald-300 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(52,211,153,0.3)] transition-all duration-500 ease-out">
+                  <s.icon size={26} className="text-emerald-600 transition-transform duration-500 group-hover:scale-110" />
                 </div>
                 <h3 className="font-semibold text-lg text-gray-900 mb-2">{s.title}</h3>
                 <p className="text-sm text-gray-500 leading-relaxed">{s.desc}</p>

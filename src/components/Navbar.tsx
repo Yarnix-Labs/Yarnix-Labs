@@ -34,7 +34,7 @@ const Navbar = ({ topBarVisible = true }: NavbarProps) => {
     <nav
       className={`fixed left-0 right-0 z-50 transition-all duration-300 ${
         topBarVisible ? "top-0 sm:top-9" : "top-0"
-      } ${scrolled ? "bg-transparent backdrop-blur-md border-b border-border/10" : "bg-transparent"}`}
+      } ${scrolled ? "bg-[#0b1411]/80 backdrop-blur-xl border-b border-emerald-500/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)]" : "bg-transparent"}`}
     >
       <div className="container flex items-center justify-between h-16 md:h-20">
         <Link to="/" className="flex items-center gap-3 tracking-tight group">
@@ -54,18 +54,19 @@ const Navbar = ({ topBarVisible = true }: NavbarProps) => {
             <Link
               key={l.path}
               to={l.path}
-              className={`text-sm font-medium transition-colors hover:text-primary ${
-                location.pathname === l.path ? "text-primary" : "text-muted-foreground"
+              className={`relative text-sm font-medium transition-colors group ${
+                location.pathname === l.path ? "text-emerald-400" : "text-muted-foreground hover:text-emerald-300"
               }`}
             >
               {l.label}
+              <span className={`absolute -bottom-1 left-0 h-[2px] bg-emerald-400/80 transition-all duration-300 ${location.pathname === l.path ? "w-full shadow-[0_0_8px_rgba(52,211,153,0.8)]" : "w-0 group-hover:w-full group-hover:shadow-[0_0_8px_rgba(52,211,153,0.8)]"}`} />
             </Link>
           ))}
         </div>
 
         <div className="hidden md:block">
           <Link to="/contact">
-            <Button size="sm">Get Started</Button>
+            <Button size="sm" className="transition-all duration-300 hover:shadow-[0_0_20px_rgba(16,185,129,0.4)]">Get Started</Button>
           </Link>
         </div>
 
@@ -83,15 +84,15 @@ const Navbar = ({ topBarVisible = true }: NavbarProps) => {
               <Link
                 key={l.path}
                 to={l.path}
-                className={`text-sm font-medium py-2 transition-colors hover:text-primary ${
-                  location.pathname === l.path ? "text-primary" : "text-muted-foreground"
+                className={`text-sm font-medium py-2 transition-colors ${
+                  location.pathname === l.path ? "text-emerald-400" : "text-muted-foreground hover:text-emerald-300"
                 }`}
               >
                 {l.label}
               </Link>
             ))}
             <Link to="/contact">
-              <Button size="sm" className="w-full mt-2">Get Started</Button>
+              <Button size="sm" className="w-full mt-2 transition-all duration-300 hover:shadow-[0_0_15px_rgba(16,185,129,0.3)]">Get Started</Button>
             </Link>
           </div>
         </div>
