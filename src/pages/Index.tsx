@@ -66,49 +66,79 @@ const Index = () => {
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute w-[600px] h-[600px] -top-48 -right-48 rounded-full blur-[120px] animate-[services-glow-1_8s_ease-in-out_infinite]" style={{ background: "rgba(16,185,129,0.15)" }} />
         <div className="absolute w-[500px] h-[500px] -bottom-40 -left-40 rounded-full blur-[100px] animate-[services-glow-2_10s_ease-in-out_infinite]" style={{ background: "rgba(5,150,105,0.12)" }} />
-        <div className="absolute w-[400px] h-[400px] top-1/3 left-1/2 -translate-x-1/2 rounded-full blur-[90px] animate-[services-glow-3_12s_ease-in-out_infinite]" style={{ background: "rgba(52,211,153,0.08)" }} />
       </div>
       <div className="container relative z-10">
-        <div className="text-center mb-14">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 text-xs font-medium mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            What We Do
-          </span>
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-3">Our Services</h2>
-          <p className="text-gray-500 max-w-xl mx-auto">Comprehensive AI and software development services to power your business.</p>
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-14">
+          <div>
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 text-xs font-medium mb-4">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              What We Do
+            </span>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900">Our Services</h2>
+          </div>
+          <Link to="/services" className="inline-flex items-center gap-2 text-emerald-600 hover:text-emerald-500 font-semibold text-sm transition-colors shrink-0">
+            View All Services <ArrowRight size={15} />
+          </Link>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <div className="grid md:grid-cols-3 gap-6">
           {servicesLoading ? (
-            [...Array(4)].map((_, i) => (
-              <div key={i} className="animate-pulse rounded-2xl p-7 bg-white border border-gray-200">
-                <div className="w-14 h-14 rounded-xl bg-gray-100 mb-5" />
-                <div className="h-4 bg-gray-200 rounded w-3/4 mb-3" />
-                <div className="h-3 bg-gray-100 rounded w-full mb-1" />
-                <div className="h-3 bg-gray-100 rounded w-5/6" />
+            [...Array(3)].map((_, i) => (
+              <div key={i} className="animate-pulse rounded-3xl overflow-hidden border border-gray-100 shadow-sm">
+                <div className="h-56 bg-gray-100" />
+                <div className="p-6 space-y-3">
+                  <div className="h-4 bg-gray-100 rounded-full w-3/4" />
+                  <div className="h-3 bg-gray-50 rounded-full w-full" />
+                  <div className="h-3 bg-gray-50 rounded-full w-4/5" />
+                </div>
               </div>
             ))
           ) : (
-            services.slice(0, 4).map((s) => {
+            services.slice(0, 3).map((s) => {
               const IconComponent = iconMap[s.icon] || Bot;
+              const imageUrl = s.image?.asset?._ref
+                ? `https://cdn.sanity.io/images/v7q2gijs/production/${s.image.asset._ref.replace('image-', '').replace(/-(\w+)$/, '.$1')}`
+                : null;
+
               return (
-                <div key={s._id} className="relative group rounded-2xl p-7 hover:-translate-y-3 transition-all duration-500 ease-out bg-white border border-gray-200 hover:border-emerald-400/50 hover:shadow-[0_10px_40px_-10px_rgba(16,185,129,0.3)] cursor-pointer">
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                  <div className="relative">
-                    <div className="w-14 h-14 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center mb-5 group-hover:bg-emerald-100 group-hover:border-emerald-300 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(52,211,153,0.3)] transition-all duration-500 ease-out">
-                      <IconComponent size={26} className="text-emerald-600 transition-transform duration-500 group-hover:scale-110" />
+                <Link
+                  to="/services"
+                  key={s._id}
+                  className="group relative rounded-3xl overflow-hidden border border-gray-100 hover:border-emerald-400/40 shadow-sm hover:shadow-[0_16px_48px_-12px_rgba(16,185,129,0.25)] transition-all duration-500 ease-out hover:-translate-y-2 bg-white cursor-pointer block"
+                >
+                  {/* Image / Gradient header */}
+                  <div className="relative h-52 overflow-hidden">
+                    {imageUrl ? (
+                      <img
+                        src={imageUrl}
+                        alt={s.title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-emerald-50 to-emerald-100 flex items-center justify-center">
+                        <IconComponent size={56} className="text-emerald-300" />
+                      </div>
+                    )}
+                    {/* dark overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                    {/* icon badge */}
+                    <div className="absolute bottom-4 left-4 w-11 h-11 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center group-hover:bg-emerald-500/20 group-hover:border-emerald-400/30 transition-all duration-500">
+                      <IconComponent size={20} className="text-white" />
                     </div>
-                    <h3 className="font-semibold text-lg text-gray-900 mb-2">{s.title}</h3>
-                    <p className="text-sm text-gray-500 leading-relaxed">{s.description}</p>
                   </div>
-                </div>
+
+                  {/* Content */}
+                  <div className="p-6">
+                    <h3 className="font-semibold text-base text-gray-900 mb-2 group-hover:text-emerald-600 transition-colors duration-300">{s.title}</h3>
+                    <p className="text-sm text-gray-500 leading-relaxed line-clamp-2">{s.description}</p>
+                    <span className="inline-flex items-center gap-1.5 mt-4 text-xs font-semibold text-emerald-600 group-hover:gap-2.5 transition-all duration-300 uppercase tracking-wider">
+                      Learn more <ArrowRight size={12} />
+                    </span>
+                  </div>
+                </Link>
               );
             })
           )}
-        </div>
-        <div className="text-center mt-10">
-          <Link to="/services" className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-black font-semibold px-8 py-3 rounded-full text-sm transition-colors">
-            View All Services <ArrowRight size={16} />
-          </Link>
         </div>
       </div>
     </section>
