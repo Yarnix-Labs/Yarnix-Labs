@@ -394,8 +394,9 @@ const Index = () => {
       </section>
 
       {/* ── Blog ── */}
-      <section className="py-20 md:py-28 bg-zinc-50/50">
-        <div className="container">
+      <section className="py-20 md:py-28 bg-zinc-50/50 relative overflow-hidden">
+        <BackgroundGrid />
+        <div className="container relative z-10">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -610,8 +611,9 @@ const Index = () => {
       </section>
 
       {/* ── About Preview ── */}
-      <section className="py-20 md:py-24 bg-white">
-        <div className="container max-w-3xl text-center">
+      <section className="py-20 md:py-24 bg-white relative overflow-hidden">
+        <BackgroundGrid />
+        <div className="container max-w-3xl text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

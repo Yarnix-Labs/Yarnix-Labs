@@ -9,7 +9,7 @@ import { useTeam } from "@/hooks/useTeam";
 
 const stats = [
   { value: "2025", label: "Founded", icon: Rocket },
-  { value: "50+", label: "Projects Delivered", icon: Sparkles },
+  { value: "10+", label: "Projects Delivered", icon: Sparkles },
   { value: "100%", label: "Client Satisfaction", icon: Heart },
 ];
 
@@ -176,8 +176,9 @@ const About = () => {
       </section>
 
       {/* ── Our Story ── */}
-      <section className="py-20 md:py-28 bg-zinc-50/50">
-        <div className="container">
+      <section className="py-20 md:py-28 bg-zinc-50/50 relative overflow-hidden">
+        <BackgroundGrid />
+        <div className="container relative z-10">
           <div className="max-w-4xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -295,8 +296,9 @@ const About = () => {
       </section>
 
       {/* ── Meet the Team ── */}
-      <section className="py-20 md:py-28 bg-zinc-50/50">
-        <div className="container">
+      <section className="py-20 md:py-28 bg-zinc-50/50 relative overflow-hidden">
+        <BackgroundGrid />
+        <div className="container relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

@@ -148,8 +148,9 @@ const Services = () => {
       </section>
 
       {/* ── Services Cards ── */}
-      <section className="py-12 md:py-20 bg-zinc-50">
-        <div className="container space-y-10 md:space-y-14">
+      <section className="py-12 md:py-20 bg-zinc-50 relative overflow-hidden">
+        <BackgroundGrid />
+        <div className="container space-y-10 md:space-y-14 relative z-10">
           {servicesLoading ? (
             <div className="text-center py-20">
               <div className="inline-flex items-center gap-3 text-zinc-400">
