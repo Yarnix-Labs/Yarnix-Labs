@@ -97,9 +97,9 @@ const Blog = () => {
             {categories.map((category) => (
               <button
                 key={category._id}
-                onClick={() => setSelectedCategory(category.slug.current)}
+                onClick={() => setSelectedCategory(category.slug?.current || null)}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                  selectedCategory === category.slug.current
+                  selectedCategory === category.slug?.current
                     ? 'bg-emerald-500 text-white'
                     : 'bg-muted text-muted-foreground hover:bg-muted/80'
                 }`}
@@ -115,8 +115,8 @@ const Blog = () => {
       <section className="py-20 md:py-28">
         <div className="container">
           <SectionHeading 
-            title={selectedCategory ? `${categories.find(c => c.slug.current === selectedCategory)?.title} Articles` : "All Articles"} 
-            subtitle={selectedCategory ? `Posts in ${categories.find(c => c.slug.current === selectedCategory)?.title} category.` : "Deep dives into technology and innovation."} 
+            title={selectedCategory ? `${categories.find(c => c.slug?.current === selectedCategory)?.title || 'Category'} Articles` : "All Articles"} 
+            subtitle={selectedCategory ? `Posts in ${categories.find(c => c.slug?.current === selectedCategory)?.title || 'category'}.` : "Deep dives into technology and innovation."} 
           />
 
           {loading ? (
@@ -162,7 +162,7 @@ const Blog = () => {
           ) : (
             <div className="space-y-10">
               {/* Featured post */}
-              {featuredPost && (
+              {featuredPost && featuredPost.slug?.current && (
                 <Link 
                   to={`/blog/${featuredPost.slug.current}`} 
                   className="group block rounded-2xl border border-border/50 bg-card overflow-hidden hover:border-emerald-500/30 transition-all duration-300 hover:shadow-xl hover:shadow-emerald-500/5"
@@ -203,7 +203,7 @@ const Blog = () => {
               {/* Rest of posts */}
               {otherPosts.length > 0 && (
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {otherPosts.map((post) => (
+                  {otherPosts.map((post) => post.slug?.current && (
                     <Link 
                       to={`/blog/${post.slug.current}`} 
                       key={post.slug.current} 
