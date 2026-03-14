@@ -38,9 +38,9 @@ const Navbar = ({ topBarVisible = true }: NavbarProps) => {
     >
       <div className="container flex items-center justify-between h-16 md:h-20">
         <Link to="/" className="flex items-center gap-3 tracking-tight group">
-          <div className="relative">
+          <div className="relative flex items-center justify-center p-1">
             <div className="absolute inset-0 bg-primary/30 rounded-full blur-lg group-hover:bg-primary/50 transition-all duration-500" />
-            <img src={logo} alt="YarnixLabs logo" className="h-11 w-11 relative z-10" />
+            <img src={logo} alt="YarnixLabs logo" className="h-16 w-16 relative z-10" />
           </div>
           <div className="flex flex-col leading-tight">
             <span className="text-lg font-bold text-gradient">YarnixLabs</span>
