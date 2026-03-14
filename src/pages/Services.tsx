@@ -6,300 +6,528 @@ import AnimatedGears from "@/components/AnimatedGears";
 import SectionHeading from "@/components/SectionHeading";
 import { useProjects } from "@/hooks/useProjects";
 import { useServices } from "@/hooks/useServices";
-import serviceAi from "@/assets/service-ai.png";
-import serviceAutomation from "@/assets/service-automation.png";
-import serviceWeb from "@/assets/service-web.png";
-import serviceDevops from "@/assets/service-devops.png";
-import serviceMobile from "@/assets/service-mobile.png";
-import serviceSeo from "@/assets/service-seo.png";
-import serviceMarketing from "@/assets/service-marketing.png";
 
 const containerVariants = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.08 } },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: 48 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.65, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] },
+  }),
 };
-
 
 const Services = () => {
   const { projects, loading: projectsLoading } = useProjects();
   const { services, loading: servicesLoading } = useServices();
 
-  // Icon mapping for service icons
-  const iconMap = {
-    Bot,
-    Cog,
-    Globe,
-    Server,
-    Smartphone,
-    Search,
-    Megaphone,
-  };
+  const iconMap = { Bot, Cog, Globe, Server, Smartphone, Search, Megaphone };
 
   return (
-  <div>
-    {/* Hero */}
-    <section className="relative min-h-[50vh] flex items-center pt-20 text-white overflow-hidden"
-      style={{ background: "linear-gradient(135deg, #0b1411 0%, #0f2d1f 50%, #134e35 100%)" }}>
-      <ParticleMeteorBackground />
-      <div className="container relative grid lg:grid-cols-2 gap-12 items-center py-16" style={{ zIndex: 2 }}>
-        <div className="space-y-6">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 text-sm font-medium animate-fade-in">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            What We Offer
-          </span>
-          <h1 className="font-display uppercase text-4xl sm:text-5xl lg:text-6xl leading-[0.95] tracking-wide text-white font-medium animate-fade-in" style={{ animationDelay: "0.1s" }}>
-            Our <span className="text-emerald-400">Services</span>
-          </h1>
-          <p className="text-lg text-white/60 leading-relaxed max-w-xl animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            End-to-end AI and software services to accelerate your digital transformation and drive measurable business results.
-          </p>
-        </div>
-        <div className="hidden lg:block animate-fade-in" style={{ animationDelay: "0.3s" }}>
-          <AnimatedGears />
-        </div>
-      </div>
-    </section>
+    <div className="antialiased">
 
-    {/* Section intro */}
-    <section className="relative py-14 md:py-20 overflow-hidden bg-gradient-to-b from-white to-zinc-50/80">
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute w-[480px] h-[480px] -top-32 -right-32 rounded-full blur-[100px] opacity-40" style={{ background: "rgba(16,185,129,0.08)" }} />
-        <div className="absolute w-[360px] h-[360px] bottom-0 left-0 rounded-full blur-[80px] opacity-30" style={{ background: "rgba(5,150,105,0.06)" }} />
-      </div>
-      <div className="container relative z-10">
-        <motion.div
-          className="max-w-2xl"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5 }}
-        >
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/5 text-emerald-700 text-xs font-medium tracking-wide uppercase mb-5">
-            What we deliver
-          </span>
-          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-foreground tracking-tight mb-4">
-            End-to-end services that scale with you
-          </h2>
-          <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
-            From AI and automation to web, mobile, and growth—each service is delivered with the same standard: clarity, quality, and measurable impact.
-          </p>
-        </motion.div>
-      </div>
-    </section>
+      {/* ── Hero ── */}
+      <section
+        className="relative min-h-[56vh] flex items-center pt-20 text-white overflow-hidden"
+        style={{ background: "linear-gradient(135deg, #070e0c 0%, #0b2318 50%, #0f3d28 100%)" }}
+      >
+        <ParticleMeteorBackground />
 
-    {/* Services - Card-based alternating layout */}
-    <section className="py-12 md:py-20 bg-zinc-50/50">
-      <div className="container space-y-12 md:space-y-16">
-        {servicesLoading ? (
-          <div className="text-center py-20">
-            <div className="animate-pulse inline-flex items-center gap-2">
-              <div className="w-4 h-4 bg-gray-200 rounded-full animate-pulse" />
-              <span className="text-gray-500">Loading services...</span>
-            </div>
-          </div>
-        ) : (
-          services.map((service, i) => {
-            const isEven = i % 2 === 0;
-            const index = String(i + 1).padStart(2, "0");
-            const IconComponent = iconMap[service.icon as keyof typeof iconMap];
-            
-            return (
-              <motion.article
-                key={service._id}
-                variants={cardVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-60px" }}
-                custom={i}
-                className={`group grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center rounded-3xl p-6 md:p-8 lg:p-10 transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(16,185,129,0.15)] bg-white border border-zinc-200/80 hover:border-emerald-400/30 cursor-pointer`}
+        {/* subtle noise overlay */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.035]"
+          style={{
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+            backgroundSize: "180px",
+          }}
+        />
+
+        {/* radial glow */}
+        <div
+          className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full pointer-events-none"
+          style={{ background: "radial-gradient(circle, rgba(16,185,129,0.12) 0%, transparent 70%)" }}
+        />
+
+        <div className="container relative grid lg:grid-cols-2 gap-12 items-center py-20" style={{ zIndex: 2 }}>
+          <div className="space-y-7">
+            <motion.span
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-emerald-500/25 bg-emerald-500/8 text-emerald-300 text-xs font-semibold tracking-widest uppercase backdrop-blur-sm"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
+              What We Offer
+            </motion.span>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="font-display uppercase text-5xl sm:text-6xl lg:text-7xl leading-[0.9] tracking-tight text-white font-semibold"
+            >
+              Our{" "}
+              <span
+                className="text-transparent bg-clip-text"
+                style={{ backgroundImage: "linear-gradient(135deg, #34d399 0%, #10b981 50%, #059669 100%)" }}
               >
-                {/* Content */}
-                <div className={`space-y-5 ${!isEven ? "md:order-2 md:pl-4" : "md:pr-4"}`}>
-                  <div className="flex items-center gap-4">
-                    <span className="font-display text-4xl font-bold text-zinc-200/90 tracking-tighter tabular-nums">
-                      {index}
-                    </span>
-                    <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0 group-hover:bg-emerald-500/15 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(52,211,153,0.2)] transition-all duration-500 ease-out">
-                      {IconComponent && <IconComponent size={22} className="text-emerald-600 transition-transform duration-500 group-hover:scale-110" strokeWidth={1.8} />}
+                Services
+              </span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-lg text-white/50 leading-relaxed max-w-lg font-light"
+            >
+              End-to-end AI and software services to accelerate your digital transformation and drive measurable business results.
+            </motion.p>
+
+            {/* decorative divider */}
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.8, delay: 0.35 }}
+              className="origin-left h-px w-32"
+              style={{ background: "linear-gradient(90deg, rgba(52,211,153,0.6) 0%, transparent 100%)" }}
+            />
+          </div>
+
+          <div className="hidden lg:block">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.92 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <AnimatedGears />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Section Intro ── */}
+      <section className="relative py-16 md:py-24 overflow-hidden bg-white">
+        {/* background grid */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.03]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(16,185,129,1) 1px, transparent 1px), linear-gradient(90deg, rgba(16,185,129,1) 1px, transparent 1px)",
+            backgroundSize: "48px 48px",
+          }}
+        />
+        <div
+          className="absolute right-0 top-0 w-[520px] h-[520px] -translate-y-1/2 translate-x-1/2 rounded-full pointer-events-none"
+          style={{ background: "radial-gradient(circle, rgba(16,185,129,0.06) 0%, transparent 65%)" }}
+        />
+
+        <div className="container relative z-10">
+          <motion.div
+            className="max-w-2xl"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/5 text-emerald-700 text-[11px] font-bold tracking-widest uppercase mb-6">
+              What we deliver
+            </span>
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-zinc-900 tracking-tight mb-5 leading-[1.05]">
+              End-to-end services{" "}
+              <span className="text-emerald-600">that scale</span> with you
+            </h2>
+            <p className="text-zinc-500 text-base sm:text-lg leading-relaxed font-light">
+              From AI and automation to web, mobile, and growth — each service is delivered with the same standard: clarity, quality, and measurable impact.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── Services Cards ── */}
+      <section className="py-12 md:py-20 bg-zinc-50">
+        <div className="container space-y-10 md:space-y-14">
+          {servicesLoading ? (
+            <div className="text-center py-20">
+              <div className="inline-flex items-center gap-3 text-zinc-400">
+                <div className="w-5 h-5 rounded-full border-2 border-emerald-500 border-t-transparent animate-spin" />
+                <span className="text-sm font-medium tracking-wide">Loading services…</span>
+              </div>
+            </div>
+          ) : (
+            services.map((service, i) => {
+              const isEven = i % 2 === 0;
+              const index = String(i + 1).padStart(2, "0");
+              const IconComponent = iconMap[service.icon as keyof typeof iconMap];
+
+              return (
+                <motion.article
+                  key={service._id}
+                  variants={cardVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-60px" }}
+                  custom={i}
+                  className={`group grid md:grid-cols-2 gap-0 items-stretch rounded-3xl overflow-hidden transition-all duration-500 ease-out hover:-translate-y-2 bg-white border border-zinc-200/60 hover:border-emerald-400/40`}
+                  style={{
+                    boxShadow: "0 2px 20px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.04)",
+                    transition: "transform 0.45s cubic-bezier(0.22,1,0.36,1), box-shadow 0.45s cubic-bezier(0.22,1,0.36,1), border-color 0.3s",
+                  }}
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLElement).style.boxShadow =
+                      "0 20px 60px rgba(0,0,0,0.09), 0 0 0 1px rgba(16,185,129,0.15), 0 0 40px rgba(16,185,129,0.10)";
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLElement).style.boxShadow =
+                      "0 2px 20px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.04)";
+                  }}
+                >
+                  {/* ── Content ── */}
+                  <div
+                    className={`space-y-6 p-8 md:p-10 lg:p-12 flex flex-col justify-center ${!isEven ? "md:order-2" : ""}`}
+                  >
+                    {/* number + icon row */}
+                    <div className="flex items-center gap-4">
+                      <span
+                        className="font-display text-5xl font-black tracking-tighter tabular-nums leading-none"
+                        style={{
+                          WebkitTextStroke: "1.5px rgba(16,185,129,0.25)",
+                          color: "transparent",
+                        }}
+                      >
+                        {index}
+                      </span>
+                      <div
+                        className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 transition-all duration-500 group-hover:scale-110"
+                        style={{
+                          background: "linear-gradient(135deg, rgba(16,185,129,0.12) 0%, rgba(5,150,105,0.06) 100%)",
+                          border: "1px solid rgba(16,185,129,0.2)",
+                          boxShadow: "0 0 0 0 rgba(52,211,153,0)",
+                          transition: "all 0.5s cubic-bezier(0.22,1,0.36,1)",
+                        }}
+                      >
+                        {IconComponent && (
+                          <IconComponent size={20} className="text-emerald-600" strokeWidth={1.75} />
+                        )}
+                      </div>
+                    </div>
+
+                    <div>
+                      <h2 className="font-display text-2xl sm:text-3xl font-bold text-zinc-900 tracking-tight mb-3 leading-tight">
+                        {service.title}
+                      </h2>
+                      <p className="text-zinc-500 text-sm sm:text-[15px] leading-relaxed font-light">
+                        {service.description}
+                      </p>
+                    </div>
+
+                    {/* feature tags */}
+                    <div className="flex flex-wrap gap-2">
+                      {service.features.map((feature: string) => (
+                        <span
+                          key={feature}
+                          className="inline-flex items-center px-3 py-1.5 rounded-full text-[11px] font-semibold tracking-wide bg-zinc-100 text-zinc-500 border border-zinc-200/80 hover:bg-emerald-50 hover:text-emerald-700 hover:border-emerald-200 transition-colors duration-200"
+                        >
+                          {feature}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* CTA */}
+                    <div className="pt-1">
+                      <Link
+                        to="/contact"
+                        className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-600 hover:text-emerald-500 transition-colors group/link"
+                      >
+                        <span className="border-b border-emerald-600/30 group-hover/link:border-emerald-500 transition-colors pb-0.5">
+                          Get started
+                        </span>
+                        <ArrowRight
+                          size={14}
+                          className="transition-transform duration-300 group-hover/link:translate-x-1"
+                        />
+                      </Link>
                     </div>
                   </div>
-                  <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-bold text-foreground tracking-tight">
-                    {service.title}
-                  </h2>
-                  <p className="text-muted-foreground text-sm sm:text-base leading-relaxed max-w-lg">
-                    {service.description}
-                  </p>
-                  <motion.div
-                    className="flex flex-wrap gap-2"
-                    variants={itemVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
+
+                  {/* ── Image ── */}
+                  <div
+                    className={`relative overflow-hidden ${!isEven ? "md:order-1" : ""} min-h-[280px] md:min-h-0`}
+                    style={{ background: "linear-gradient(135deg, #f0fdf4, #d1fae5)" }}
                   >
-                    {service.features.map((feature, j) => (
-                      <motion.span
-                        key={feature}
-                        variants={itemVariants}
-                        className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-zinc-100 text-zinc-600 border border-zinc-200/80"
-                      >
-                        {feature}
-                      </motion.span>
-                    ))}
-                  </motion.div>
-                  <Link
-                    to="/contact"
-                    className="inline-flex items-center gap-2 text-emerald-600 hover:text-emerald-700 font-semibold text-sm transition-colors group"
-                  >
-                    Get started
-                    <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
-                  </Link>
-                </div>
-                {/* Image */}
-                <div className={`relative overflow-hidden rounded-2xl bg-zinc-100 ${!isEven ? "md:order-1" : ""}`}>
-                  <div className="aspect-[4/3] sm:aspect-[5/3] relative">
                     {service.image?.asset?._ref ? (
                       <img
-                        src={`https://cdn.sanity.io/images/v7q2gijs/production/${service.image.asset._ref.replace('image-', '').replace('-jpg', '.jpg').replace('-png', '.png').replace('-webp', '.webp')}`}
+                        src={`https://cdn.sanity.io/images/v7q2gijs/production/${service.image.asset._ref
+                          .replace("image-", "")
+                          .replace("-jpg", ".jpg")
+                          .replace("-png", ".png")
+                          .replace("-webp", ".webp")}`}
                         alt={service.title}
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                       />
                     ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-emerald-100 to-emerald-200 flex items-center justify-center">
-                        {IconComponent && <IconComponent size={48} className="text-emerald-600" />}
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div
+                          className="w-24 h-24 rounded-3xl flex items-center justify-center"
+                          style={{
+                            background: "linear-gradient(135deg, rgba(16,185,129,0.15), rgba(5,150,105,0.08))",
+                            border: "1px solid rgba(16,185,129,0.2)",
+                          }}
+                        >
+                          {IconComponent && <IconComponent size={40} className="text-emerald-600" strokeWidth={1.5} />}
+                        </div>
                       </div>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none" />
-                  </div>
-                </div>
-              </motion.article>
-            );
-          })
-        )}
-      </div>
-    </section>
-
-    {/* Projects Showcase */}
-    <section className="py-20 md:py-28 bg-card/30">
-      <div className="container">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          <SectionHeading title="Recent Projects" subtitle="See our latest work in action." />
-        </motion.div>
-        <div className="grid md:grid-cols-3 gap-8 mt-10">
-          {projectsLoading ? (
-            [...Array(3)].map((_, i) => (
-              <div key={i} className="animate-pulse">
-                <div className="group relative rounded-2xl overflow-hidden" style={{ background: 'linear-gradient(145deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)' }}>
-                  <div className="h-48 bg-gray-200" />
-                  <div className="p-6" style={{ background: 'linear-gradient(180deg, #0f1f19 0%, #0b1411 100%)' }}>
-                    <div className="h-4 bg-gray-300 rounded w-3/4 mb-4" />
-                    <div className="h-3 bg-gray-300 rounded w-full mb-4" />
-                    <div className="flex gap-2 mb-4">
-                      <div className="h-3 bg-gray-300 rounded w-16" />
-                      <div className="h-3 bg-gray-300 rounded w-20" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))
-          ) : (
-            projects?.slice(0, 3).map((project) => (
-              <div key={project._id} className="group relative rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-1" style={{ background: 'linear-gradient(145deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)' }}>
-                <div className="absolute inset-0 rounded-2xl border border-white/[0.06] group-hover:border-emerald-500/20 transition-colors duration-500 pointer-events-none z-10" />
-                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.05), 0 0 40px -10px rgba(16,185,129,0.1)' }} />
-                <div className="relative h-48 overflow-hidden bg-black/20">
-                  <img 
-                    src={project.image?.asset?._ref ? `https://cdn.sanity.io/images/v7q2gijs/production/${project.image.asset._ref.replace('image-', '').replace('-jpg', '.jpg').replace('-png', '.png').replace('-webp', '.webp')}` : '/placeholder.jpg'} 
-                    alt={project.title} 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-95" 
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0b1411] via-[#0b1411]/40 to-transparent" />
-                  {project.category && (
-                    <span className="absolute top-3 left-3 text-[10px] uppercase tracking-widest px-3 py-1 rounded-full bg-white/[0.06] border border-white/[0.08] text-white/50 font-medium backdrop-blur-md">
-                      {project.category.title}
+                    {/* gradient overlay */}
+                    <div
+                      className={`absolute inset-0 pointer-events-none transition-opacity duration-500 opacity-0 group-hover:opacity-100`}
+                      style={{
+                        background: isEven
+                          ? "linear-gradient(to left, rgba(255,255,255,0.12), transparent)"
+                          : "linear-gradient(to right, rgba(255,255,255,0.12), transparent)",
+                      }}
+                    />
+                    {/* index watermark */}
+                    <span
+                      className="absolute bottom-4 right-5 font-display text-8xl font-black pointer-events-none select-none leading-none opacity-[0.07]"
+                      style={{ color: "#059669" }}
+                    >
+                      {index}
                     </span>
-                  )}
-                </div>
-                <div className="p-6" style={{ background: 'linear-gradient(180deg, #0f1f19 0%, #0b1411 100%)' }}>
-                  <h3 className="font-sans font-semibold text-sm text-white/80 mb-1.5 tracking-wide uppercase">{project.title}</h3>
-                  <p className="text-xs text-white/30 mb-4 leading-relaxed line-clamp-2">{project.description}</p>
-                  <div className="flex flex-wrap gap-1.5 mb-4">
-                    {project.techStack?.slice(0, 3).map((tech) => (
-                      <span key={tech} className="text-[10px] px-2 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.06] text-white/40 font-medium">{tech}</span>
-                    ))}
                   </div>
-                  <div className="flex items-center gap-3">
-                    <Link to={`/projects/${project.slug.current}`} className="inline-flex items-center gap-1.5 text-xs text-emerald-400/70 font-medium hover:text-emerald-300 transition-colors uppercase tracking-wider">
-                      View Details <ExternalLink size={12} />
-                    </Link>
-                    <button className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400/80 font-medium hover:bg-emerald-500/20 hover:text-emerald-300 transition-all uppercase tracking-wider">
-                      Live Demo <ArrowRight size={12} />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))
+                </motion.article>
+              );
+            })
           )}
         </div>
-        <div className="text-center mt-10">
-          <Link to="/projects" className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-black font-semibold px-8 py-3 rounded-full text-sm transition-colors">
-            View All Projects <ArrowRight size={16} />
-          </Link>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    {/* CTA */}
-    <section className="py-16 md:py-24">
-      <div className="container">
-        <motion.div
-          className="relative rounded-3xl overflow-hidden"
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5 }}
-          style={{ background: "linear-gradient(135deg, #0b1411 0%, #0f2d1f 45%, #134e35 100%)" }}
-        >
-          <div className="absolute inset-0 bg-grid-pattern opacity-[0.06]" />
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-transparent pointer-events-none" />
-          <div className="relative px-8 py-14 md:px-16 md:py-20 text-center">
-            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight mb-3">
-              Need a custom solution?
-            </h2>
-            <p className="text-white/55 text-base sm:text-lg max-w-lg mx-auto mb-10">
-              Let's discuss how we can help transform your business with AI and modern software.
-            </p>
-            <div className="flex flex-wrap gap-3 sm:gap-4 justify-center">
-              <Link to="/contact">
-                <button className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-black font-semibold px-7 py-3.5 rounded-full text-sm transition-all duration-200 hover:shadow-lg hover:shadow-emerald-500/25">
-                  Get Started <ArrowRight size={16} />
-                </button>
-              </Link>
-              <Link to="/projects">
-                <button className="inline-flex items-center gap-2 border border-white/25 bg-white/5 hover:bg-white/10 text-white font-semibold px-7 py-3.5 rounded-full text-sm transition-all duration-200 backdrop-blur-sm">
-                  View Projects
-                </button>
-              </Link>
+      {/* ── Projects Showcase ── */}
+      <section
+        className="py-20 md:py-32 relative overflow-hidden"
+        style={{ background: "linear-gradient(180deg, #070e0c 0%, #0b1a13 100%)" }}
+      >
+        {/* subtle texture */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.03]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(52,211,153,1) 1px, transparent 1px), linear-gradient(90deg, rgba(52,211,153,1) 1px, transparent 1px)",
+            backgroundSize: "64px 64px",
+          }}
+        />
+        <div
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] pointer-events-none"
+          style={{ background: "radial-gradient(ellipse, rgba(16,185,129,0.07) 0%, transparent 70%)" }}
+        />
+
+        <div className="container relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <SectionHeading title="Recent Projects" subtitle="See our latest work in action." />
+          </motion.div>
+
+          <motion.div
+            className="grid md:grid-cols-3 gap-6 mt-12"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+          >
+            {projectsLoading
+              ? [...Array(3)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="rounded-2xl overflow-hidden animate-pulse"
+                    style={{ background: "rgba(255,255,255,0.03)" }}
+                  >
+                    <div className="h-52 bg-white/5" />
+                    <div className="p-6 space-y-3">
+                      <div className="h-3.5 bg-white/8 rounded-full w-3/4" />
+                      <div className="h-2.5 bg-white/5 rounded-full w-full" />
+                      <div className="h-2.5 bg-white/5 rounded-full w-4/5" />
+                    </div>
+                  </div>
+                ))
+              : projects?.slice(0, 3).map((project, i) => (
+                  <motion.div
+                    key={project._id}
+                    variants={itemVariants}
+                    className="group relative rounded-2xl overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-2"
+                    style={{
+                      background: "linear-gradient(160deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.015) 100%)",
+                      border: "1px solid rgba(255,255,255,0.07)",
+                      boxShadow: "0 4px 24px rgba(0,0,0,0.3)",
+                    }}
+                    onMouseEnter={e => {
+                      (e.currentTarget as HTMLElement).style.borderColor = "rgba(52,211,153,0.2)";
+                      (e.currentTarget as HTMLElement).style.boxShadow = "0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(16,185,129,0.08)";
+                    }}
+                    onMouseLeave={e => {
+                      (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.07)";
+                      (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 24px rgba(0,0,0,0.3)";
+                    }}
+                  >
+                    {/* image */}
+                    <div className="relative h-52 overflow-hidden bg-black/20">
+                      <img
+                        src={
+                          project.image?.asset?._ref
+                            ? `https://cdn.sanity.io/images/v7q2gijs/production/${project.image.asset._ref
+                                .replace("image-", "")
+                                .replace("-jpg", ".jpg")
+                                .replace("-png", ".png")
+                                .replace("-webp", ".webp")}`
+                            : "/placeholder.jpg"
+                        }
+                        alt={project.title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-107 opacity-75 group-hover:opacity-90"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#070e0c] via-[#070e0c]/30 to-transparent" />
+                      {project.category && (
+                        <span className="absolute top-3 left-3 text-[10px] uppercase tracking-widest px-3 py-1 rounded-full bg-black/30 border border-white/10 text-white/45 font-medium backdrop-blur-md">
+                          {project.category.title}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* body */}
+                    <div className="p-6 pt-5">
+                      <h3 className="font-sans font-semibold text-[13px] text-white/75 mb-1.5 tracking-wider uppercase">
+                        {project.title}
+                      </h3>
+                      <p className="text-[12px] text-white/30 mb-4 leading-relaxed line-clamp-2 font-light">
+                        {project.description}
+                      </p>
+                      <div className="flex flex-wrap gap-1.5 mb-5">
+                        {project.techStack?.slice(0, 3).map((tech: string) => (
+                          <span
+                            key={tech}
+                            className="text-[10px] px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/[0.07] text-white/35 font-medium tracking-wide"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                      {/* horizontal rule */}
+                      <div className="h-px bg-white/[0.06] mb-4" />
+                      <div className="flex items-center gap-4">
+                        <Link
+                          to={`/projects/${project.slug.current}`}
+                          className="inline-flex items-center gap-1.5 text-[11px] text-emerald-400/60 font-semibold hover:text-emerald-300 transition-colors uppercase tracking-widest"
+                        >
+                          View Details <ExternalLink size={11} />
+                        </Link>
+                        <button className="ml-auto inline-flex items-center gap-1.5 text-[11px] px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/15 text-emerald-400/70 font-semibold hover:bg-emerald-500/18 hover:text-emerald-300 transition-all uppercase tracking-widest">
+                          Live Demo <ArrowRight size={11} />
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+          </motion.div>
+
+          <motion.div
+            className="text-center mt-14"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <Link
+              to="/projects"
+              className="inline-flex items-center gap-2.5 bg-emerald-500 hover:bg-emerald-400 text-black font-bold px-9 py-3.5 rounded-full text-sm transition-all duration-300 hover:shadow-[0_0_30px_rgba(52,211,153,0.35)] tracking-wide"
+            >
+              View All Projects <ArrowRight size={15} />
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── CTA ── */}
+      <section className="py-16 md:py-28 bg-white">
+        <div className="container">
+          <motion.div
+            className="relative rounded-3xl overflow-hidden"
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+            style={{
+              background: "linear-gradient(135deg, #060d0b 0%, #0d2a1c 45%, #0f3d28 100%)",
+            }}
+          >
+            {/* grid */}
+            <div
+              className="absolute inset-0 opacity-[0.05] pointer-events-none"
+              style={{
+                backgroundImage:
+                  "linear-gradient(rgba(52,211,153,1) 1px, transparent 1px), linear-gradient(90deg, rgba(52,211,153,1) 1px, transparent 1px)",
+                backgroundSize: "40px 40px",
+              }}
+            />
+            {/* glow */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(16,185,129,0.15) 0%, transparent 65%)" }}
+            />
+            {/* top border accent */}
+            <div
+              className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px"
+              style={{ background: "linear-gradient(90deg, transparent, rgba(52,211,153,0.5), transparent)" }}
+            />
+
+            <div className="relative px-8 py-16 md:px-20 md:py-24 text-center">
+              <motion.span
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4 }}
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/8 text-emerald-300 text-[11px] font-bold tracking-widest uppercase mb-7 backdrop-blur-sm"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(52,211,153,0.9)]" />
+                Let's Work Together
+              </motion.span>
+
+              <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight mb-4 leading-[1.05]">
+                Need a custom solution?
+              </h2>
+              <p className="text-white/40 text-base sm:text-lg max-w-lg mx-auto mb-12 font-light leading-relaxed">
+                Let's discuss how we can help transform your business with AI and modern software.
+              </p>
+
+              <div className="flex flex-wrap gap-4 justify-center">
+                <Link to="/contact">
+                  <button className="inline-flex items-center gap-2.5 bg-emerald-500 hover:bg-emerald-400 text-black font-bold px-8 py-4 rounded-full text-sm transition-all duration-300 hover:shadow-[0_0_40px_rgba(52,211,153,0.4)] tracking-wide">
+                    Get Started <ArrowRight size={15} />
+                  </button>
+                </Link>
+                <Link to="/projects">
+                  <button className="inline-flex items-center gap-2.5 border border-white/15 bg-white/[0.04] hover:bg-white/[0.08] text-white/80 font-semibold px-8 py-4 rounded-full text-sm transition-all duration-300 backdrop-blur-sm tracking-wide">
+                    View Projects
+                  </button>
+                </Link>
+              </div>
             </div>
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  </div>
-);
+          </motion.div>
+        </div>
+      </section>
+    </div>
+  );
 };
+
 export default Services;
