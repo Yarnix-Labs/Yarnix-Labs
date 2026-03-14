@@ -6,6 +6,7 @@ import AnimatedGears from "@/components/AnimatedGears";
 import SectionHeading from "@/components/SectionHeading";
 import { useProjects } from "@/hooks/useProjects";
 import { useServices } from "@/hooks/useServices";
+import BackgroundGrid from "@/components/BackgroundGrid";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -14,7 +15,7 @@ const containerVariants = {
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const } },
 };
 
 const cardVariants = {
@@ -22,7 +23,7 @@ const cardVariants = {
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.65, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.65, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] as const },
   }),
 };
 
@@ -118,15 +119,7 @@ const Services = () => {
 
       {/* ── Section Intro ── */}
       <section className="relative py-16 md:py-24 overflow-hidden bg-white">
-        {/* background grid */}
-        <div
-          className="absolute inset-0 pointer-events-none opacity-[0.03]"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(16,185,129,1) 1px, transparent 1px), linear-gradient(90deg, rgba(16,185,129,1) 1px, transparent 1px)",
-            backgroundSize: "48px 48px",
-          }}
-        />
+        <BackgroundGrid />
         <div
           className="absolute right-0 top-0 w-[520px] h-[520px] -translate-y-1/2 translate-x-1/2 rounded-full pointer-events-none"
           style={{ background: "radial-gradient(circle, rgba(16,185,129,0.06) 0%, transparent 65%)" }}
@@ -317,15 +310,7 @@ const Services = () => {
         className="py-20 md:py-32 relative overflow-hidden"
         style={{ background: "linear-gradient(180deg, #070e0c 0%, #0b1a13 100%)" }}
       >
-        {/* subtle texture */}
-        <div
-          className="absolute inset-0 pointer-events-none opacity-[0.03]"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(52,211,153,1) 1px, transparent 1px), linear-gradient(90deg, rgba(52,211,153,1) 1px, transparent 1px)",
-            backgroundSize: "64px 64px",
-          }}
-        />
+        <BackgroundGrid color="rgba(52,211,153,1)" size="64px" />
         <div
           className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] pointer-events-none"
           style={{ background: "radial-gradient(ellipse, rgba(16,185,129,0.07) 0%, transparent 70%)" }}
@@ -473,14 +458,7 @@ const Services = () => {
             }}
           >
             {/* grid */}
-            <div
-              className="absolute inset-0 opacity-[0.05] pointer-events-none"
-              style={{
-                backgroundImage:
-                  "linear-gradient(rgba(52,211,153,1) 1px, transparent 1px), linear-gradient(90deg, rgba(52,211,153,1) 1px, transparent 1px)",
-                backgroundSize: "40px 40px",
-              }}
-            />
+            <BackgroundGrid color="rgba(52,211,153,1)" size="40px" className="absolute inset-0 opacity-[0.05] pointer-events-none" />
             {/* glow */}
             <div
               className="absolute inset-0 pointer-events-none"

@@ -1,6 +1,7 @@
 import { Target, Lightbulb, Users, ArrowRight, Github, Linkedin, Globe, Sparkles, Rocket, Heart, Star, CheckCircle2 } from "lucide-react";
 import ParticleMeteorBackground from "@/components/ParticleMeteorBackground";
 import AnimatedNetwork from "@/components/AnimatedNetwork";
+import BackgroundGrid from "@/components/BackgroundGrid";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useTestimonials } from "@/hooks/useTestimonials";
@@ -56,7 +57,7 @@ const cardVariants = {
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.12, duration: 0.55, ease: [0.22, 1, 0.36, 1] as const },
+    transition: { delay: i * 0.1, duration: 0.55, ease: [0.22, 1, 0.36, 1] as const },
   }),
 };
 
@@ -65,36 +66,79 @@ const About = () => {
   const { teamMembers, loading: teamLoading, error: teamError } = useTeam();
 
   return (
-    <div>
+    <div className="antialiased">
+
       {/* ── Hero ── */}
       <section
         className="relative min-h-[55vh] flex items-center pt-20 text-white overflow-hidden"
         style={{ background: "linear-gradient(135deg, #0b1411 0%, #0f2d1f 50%, #134e35 100%)" }}
       >
         <ParticleMeteorBackground />
+
+        {/* noise */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.035]"
+          style={{
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+            backgroundSize: "180px",
+          }}
+        />
+        <div
+          className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full pointer-events-none"
+          style={{ background: "radial-gradient(circle, rgba(16,185,129,0.12) 0%, transparent 70%)" }}
+        />
+
         <div className="container relative grid lg:grid-cols-2 gap-12 items-center py-16" style={{ zIndex: 2 }}>
-          <motion.div
-            className="space-y-6"
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
-          >
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 text-sm font-medium">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <div className="space-y-7">
+            <motion.span
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-emerald-500/25 bg-emerald-500/8 text-emerald-300 text-xs font-semibold tracking-widest uppercase backdrop-blur-sm"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
               Who We Are
-            </span>
-            <h1 className="font-display uppercase text-4xl sm:text-5xl lg:text-6xl leading-[0.95] tracking-wide text-white font-medium">
-              About <span className="text-emerald-400">YarnixLabs</span>
-            </h1>
-            <p className="text-lg text-white/60 leading-relaxed max-w-xl">
+            </motion.span>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="font-display uppercase text-4xl sm:text-5xl lg:text-6xl leading-[0.92] tracking-tight text-white font-semibold"
+            >
+              About{" "}
+              <span
+                className="text-transparent bg-clip-text"
+                style={{ backgroundImage: "linear-gradient(135deg, #34d399 0%, #10b981 50%, #059669 100%)" }}
+              >
+                YarnixLabs
+              </span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-lg text-white/50 leading-relaxed max-w-xl font-light"
+            >
               A forward-thinking AI and software company building the future of intelligent technology for businesses worldwide.
-            </p>
-          </motion.div>
+            </motion.p>
+
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.8, delay: 0.35 }}
+              className="origin-left h-px w-32"
+              style={{ background: "linear-gradient(90deg, rgba(52,211,153,0.6) 0%, transparent 100%)" }}
+            />
+          </div>
+
           <motion.div
             className="hidden lg:block"
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={{ opacity: 0, scale: 0.88 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
           >
             <AnimatedNetwork />
           </motion.div>
@@ -108,17 +152,23 @@ const About = () => {
             {stats.map((s, i) => (
               <motion.div
                 key={s.label}
-                className="rounded-2xl border border-emerald-500/20 bg-card backdrop-blur-sm p-6 text-center shadow-xl shadow-emerald-500/5"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
+                transition={{ delay: i * 0.1, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                className="rounded-2xl bg-white border border-zinc-200/60 p-6 text-center"
+                style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.08), 0 0 0 1px rgba(16,185,129,0.06)" }}
               >
-                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mx-auto mb-3">
-                  <s.icon size={18} className="text-emerald-400" />
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-3"
+                  style={{
+                    background: "linear-gradient(135deg, rgba(16,185,129,0.12), rgba(5,150,105,0.06))",
+                    border: "1px solid rgba(16,185,129,0.2)",
+                  }}
+                >
+                  <s.icon size={17} className="text-emerald-500" />
                 </div>
-                <span className="text-3xl font-bold text-foreground block">{s.value}</span>
-                <span className="text-xs text-muted-foreground mt-1 block">{s.label}</span>
+                <span className="text-3xl font-bold text-zinc-900 block tracking-tight">{s.value}</span>
+                <span className="text-[11px] text-zinc-400 mt-1 block font-semibold uppercase tracking-widest">{s.label}</span>
               </motion.div>
             ))}
           </div>
@@ -126,7 +176,7 @@ const About = () => {
       </section>
 
       {/* ── Our Story ── */}
-      <section className="py-20 md:py-28">
+      <section className="py-20 md:py-28 bg-zinc-50/50">
         <div className="container">
           <div className="max-w-4xl mx-auto">
             <motion.div
@@ -136,12 +186,15 @@ const About = () => {
               transition={{ duration: 0.6 }}
               className="mb-12"
             >
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 text-xs font-medium mb-4">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/5 text-emerald-700 text-[11px] font-bold tracking-widest uppercase mb-5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                 Our Story
               </span>
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900">From vision to reality.</h2>
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-zinc-900 tracking-tight leading-tight">
+                From vision <span className="text-emerald-600">to reality.</span>
+              </h2>
             </motion.div>
+
             <div className="grid md:grid-cols-2 gap-6">
               {story.map((item, i) => (
                 <motion.div
@@ -151,14 +204,23 @@ const About = () => {
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true }}
-                  className="rounded-2xl border border-border/50 bg-card p-8 hover:border-emerald-500/30 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/5 hover:-translate-y-1"
+                  className="rounded-2xl bg-white border border-zinc-200/60 p-8 hover:-translate-y-1 transition-all duration-500 group"
+                  style={{ boxShadow: "0 2px 16px rgba(0,0,0,0.04)" }}
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(16,185,129,0.25)";
+                    (e.currentTarget as HTMLElement).style.boxShadow = "0 16px 48px rgba(0,0,0,0.08), 0 0 32px rgba(16,185,129,0.07)";
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(228,228,231,0.6)";
+                    (e.currentTarget as HTMLElement).style.boxShadow = "0 2px 16px rgba(0,0,0,0.04)";
+                  }}
                 >
-                  <h3 className="text-lg font-bold mb-3 text-foreground">{item.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed text-sm mb-5">{item.text}</p>
-                  <ul className="space-y-2">
+                  <h3 className="text-base font-bold mb-3 text-zinc-900 uppercase tracking-widest text-[13px]">{item.title}</h3>
+                  <p className="text-zinc-500 leading-relaxed text-sm mb-6 font-light">{item.text}</p>
+                  <ul className="space-y-2.5">
                     {item.points.map((pt) => (
-                      <li key={pt} className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <CheckCircle2 size={15} className="text-emerald-500 mt-0.5 shrink-0" />
+                      <li key={pt} className="flex items-start gap-2.5 text-sm text-zinc-500 font-light">
+                        <CheckCircle2 size={14} className="text-emerald-500 mt-0.5 shrink-0" />
                         {pt}
                       </li>
                     ))}
@@ -172,11 +234,13 @@ const About = () => {
 
       {/* ── Our Values ── */}
       <section className="py-20 md:py-28 relative overflow-hidden bg-white">
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute w-[600px] h-[600px] -top-48 -right-48 rounded-full blur-[120px] animate-[services-glow-1_8s_ease-in-out_infinite]" style={{ background: "rgba(16,185,129,0.15)" }} />
-          <div className="absolute w-[500px] h-[500px] -bottom-40 -left-40 rounded-full blur-[100px] animate-[services-glow-2_10s_ease-in-out_infinite]" style={{ background: "rgba(5,150,105,0.12)" }} />
-        </div>
-        <div className="container relative">
+        <BackgroundGrid />
+        <div
+          className="absolute right-0 top-0 w-[520px] h-[520px] -translate-y-1/3 translate-x-1/3 rounded-full pointer-events-none"
+          style={{ background: "radial-gradient(circle, rgba(16,185,129,0.07) 0%, transparent 65%)" }}
+        />
+
+        <div className="container relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -184,12 +248,15 @@ const About = () => {
             transition={{ duration: 0.6 }}
             className="mb-12"
           >
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 text-xs font-medium mb-4">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/5 text-emerald-700 text-[11px] font-bold tracking-widest uppercase mb-5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
               Core Values
             </span>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900">The principles that guide us.</h2>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-zinc-900 tracking-tight leading-tight">
+              The principles <span className="text-emerald-600">that guide us.</span>
+            </h2>
           </motion.div>
+
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {values.map((v, i) => (
               <motion.div
@@ -199,13 +266,28 @@ const About = () => {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                className="rounded-2xl border border-gray-200 bg-white/80 backdrop-blur-sm p-8 hover:-translate-y-2 transition-all duration-300 hover:border-emerald-500/40 hover:shadow-[0_10px_40px_-10px_rgba(16,185,129,0.25)] group"
+                className="rounded-2xl bg-white border border-zinc-200/60 p-8 hover:-translate-y-2 transition-all duration-500 group"
+                style={{ boxShadow: "0 2px 16px rgba(0,0,0,0.04)" }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLElement).style.borderColor = "rgba(16,185,129,0.25)";
+                  (e.currentTarget as HTMLElement).style.boxShadow = "0 16px 48px rgba(0,0,0,0.08), 0 0 32px rgba(16,185,129,0.10)";
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLElement).style.borderColor = "rgba(228,228,231,0.6)";
+                  (e.currentTarget as HTMLElement).style.boxShadow = "0 2px 16px rgba(0,0,0,0.04)";
+                }}
               >
-                <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mb-6 group-hover:bg-emerald-500/20 group-hover:shadow-[0_0_20px_rgba(52,211,153,0.2)] transition-all duration-500">
-                  <v.icon size={24} className="text-emerald-500" />
+                <div
+                  className="w-13 h-13 w-12 h-12 rounded-2xl flex items-center justify-center mb-6 transition-all duration-500 group-hover:scale-110"
+                  style={{
+                    background: "linear-gradient(135deg, rgba(16,185,129,0.12), rgba(5,150,105,0.06))",
+                    border: "1px solid rgba(16,185,129,0.2)",
+                  }}
+                >
+                  <v.icon size={22} className="text-emerald-600" strokeWidth={1.75} />
                 </div>
-                <h3 className="font-bold text-lg mb-3 text-gray-900">{v.title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">{v.desc}</p>
+                <h3 className="font-bold text-[13px] uppercase tracking-widest mb-3 text-zinc-900">{v.title}</h3>
+                <p className="text-sm text-zinc-500 leading-relaxed font-light">{v.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -213,7 +295,7 @@ const About = () => {
       </section>
 
       {/* ── Meet the Team ── */}
-      <section className="py-20 md:py-28">
+      <section className="py-20 md:py-28 bg-zinc-50/50">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -222,28 +304,30 @@ const About = () => {
             transition={{ duration: 0.6 }}
             className="mb-12"
           >
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 text-xs font-medium mb-4">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/5 text-emerald-700 text-[11px] font-bold tracking-widest uppercase mb-5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
               Our Team
             </span>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900">The people behind YarnixLabs.</h2>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-zinc-900 tracking-tight leading-tight">
+              The people behind <span className="text-emerald-600">YarnixLabs.</span>
+            </h2>
           </motion.div>
 
           {teamLoading ? (
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
               {[...Array(4)].map((_, i) => (
-                <div key={i} className="animate-pulse rounded-2xl border border-gray-100 overflow-hidden bg-white">
-                  <div className="aspect-square bg-gray-100" />
-                  <div className="p-4 space-y-2">
-                    <div className="h-4 bg-gray-100 rounded w-3/4" />
-                    <div className="h-3 bg-gray-50 rounded w-1/2" />
+                <div key={i} className="animate-pulse rounded-2xl border border-zinc-200/60 overflow-hidden bg-white">
+                  <div className="aspect-square bg-zinc-100" />
+                  <div className="p-5 space-y-2">
+                    <div className="h-4 bg-zinc-100 rounded-full w-3/4" />
+                    <div className="h-3 bg-zinc-100 rounded-full w-1/2" />
                   </div>
                 </div>
               ))}
             </div>
           ) : teamError ? (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">Failed to load team members.</p>
+              <p className="text-zinc-400 text-sm font-light">Failed to load team members.</p>
             </div>
           ) : (
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
@@ -255,42 +339,57 @@ const About = () => {
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true }}
-                  className="group rounded-2xl border border-gray-100 hover:border-emerald-400/40 bg-white overflow-hidden shadow-sm hover:shadow-[0_16px_40px_-12px_rgba(16,185,129,0.2)] transition-all duration-500 hover:-translate-y-2"
+                  className="group rounded-2xl border border-zinc-200/60 bg-white overflow-hidden transition-all duration-500 hover:-translate-y-2"
+                  style={{ boxShadow: "0 2px 16px rgba(0,0,0,0.04)" }}
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(16,185,129,0.25)";
+                    (e.currentTarget as HTMLElement).style.boxShadow = "0 20px 60px rgba(0,0,0,0.10), 0 0 40px rgba(16,185,129,0.08)";
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(228,228,231,0.6)";
+                    (e.currentTarget as HTMLElement).style.boxShadow = "0 2px 16px rgba(0,0,0,0.04)";
+                  }}
                 >
-                  {/* Square image */}
+                  {/* image */}
                   <div className="relative aspect-square overflow-hidden bg-emerald-50">
                     <img
-                      src={m.image?.asset?._ref ? `https://cdn.sanity.io/images/v7q2gijs/production/${m.image.asset._ref.replace('image-', '').replace('-jpg', '.jpg').replace('-png', '.png').replace('-webp', '.webp')}` : '/placeholder.jpg'}
+                      src={m.image?.asset?._ref
+                        ? `https://cdn.sanity.io/images/v7q2gijs/production/${m.image.asset._ref.replace('image-', '').replace('-jpg', '.jpg').replace('-png', '.png').replace('-webp', '.webp')}`
+                        : '/placeholder.jpg'}
                       alt={m.name}
                       className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    {/* Social icons on hover */}
-                    <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-2 opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-500">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                    {/* social icons */}
+                    <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-500">
                       {m.portfolio && (
-                        <a href={m.portfolio} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-emerald-500/80 transition-all" title="Portfolio">
-                          <Globe size={14} />
+                        <a href={m.portfolio} target="_blank" rel="noopener noreferrer"
+                          className="w-8 h-8 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-emerald-500 transition-all duration-200">
+                          <Globe size={13} />
                         </a>
                       )}
                       {m.github && (
-                        <a href={m.github} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-emerald-500/80 transition-all" title="GitHub">
-                          <Github size={14} />
+                        <a href={m.github} target="_blank" rel="noopener noreferrer"
+                          className="w-8 h-8 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-emerald-500 transition-all duration-200">
+                          <Github size={13} />
                         </a>
                       )}
                       {m.linkedin && (
-                        <a href={m.linkedin} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-emerald-500/80 transition-all" title="LinkedIn">
-                          <Linkedin size={14} />
+                        <a href={m.linkedin} target="_blank" rel="noopener noreferrer"
+                          className="w-8 h-8 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-emerald-500 transition-all duration-200">
+                          <Linkedin size={13} />
                         </a>
                       )}
                     </div>
                   </div>
 
-                  {/* Info */}
+                  {/* info */}
                   <div className="p-5 pt-4">
-                    <h4 className="font-semibold text-base text-gray-900 truncate">{m.name}</h4>
-                    <p className="text-sm text-emerald-500 font-medium mt-1 truncate">{m.role}</p>
+                    <h4 className="font-semibold text-[13px] uppercase tracking-wider text-zinc-800 truncate">{m.name}</h4>
+                    <p className="text-xs text-emerald-600 font-semibold mt-1 truncate tracking-wide">{m.role}</p>
                     {m.description && (
-                      <p className="text-sm text-gray-500 leading-relaxed mt-2 line-clamp-2">{m.description}</p>
+                      <p className="text-xs text-zinc-400 leading-relaxed mt-2 line-clamp-2 font-light">{m.description}</p>
                     )}
                   </div>
                 </motion.div>
@@ -301,11 +400,24 @@ const About = () => {
       </section>
 
       {/* ── Testimonials ── */}
-      <section className="py-20 md:py-28 relative overflow-hidden bg-white">
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute w-[600px] h-[600px] -top-48 -right-48 rounded-full blur-[120px] animate-[services-glow-1_8s_ease-in-out_infinite]" style={{ background: "rgba(16,185,129,0.15)" }} />
-          <div className="absolute w-[500px] h-[500px] -bottom-40 -left-40 rounded-full blur-[100px] animate-[services-glow-2_10s_ease-in-out_infinite]" style={{ background: "rgba(5,150,105,0.12)" }} />
-        </div>
+      <section
+        className="py-20 md:py-28 relative overflow-hidden"
+        style={{ background: "linear-gradient(180deg, #070e0c 0%, #0b1a13 100%)" }}
+      >
+        {/* grid texture */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.03]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(52,211,153,1) 1px, transparent 1px), linear-gradient(90deg, rgba(52,211,153,1) 1px, transparent 1px)",
+            backgroundSize: "64px 64px",
+          }}
+        />
+        <div
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[400px] pointer-events-none"
+          style={{ background: "radial-gradient(ellipse, rgba(16,185,129,0.07) 0%, transparent 70%)" }}
+        />
+
         <div className="container relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -314,25 +426,27 @@ const About = () => {
             transition={{ duration: 0.6 }}
             className="mb-12"
           >
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 text-xs font-medium mb-4">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/8 text-emerald-300 text-[11px] font-bold tracking-widest uppercase mb-5 backdrop-blur-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
               Testimonials
             </span>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900">What clients say.</h2>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-white tracking-tight leading-tight">
+              What clients <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #34d399 0%, #10b981 100%)" }}>say.</span>
+            </h2>
           </motion.div>
 
           {loading ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[...Array(6)].map((_, i) => (
-                <div key={i} className="animate-pulse rounded-2xl border border-gray-100 bg-white/80 p-7 space-y-3">
-                  <div className="flex gap-1">{[...Array(5)].map((_, j) => <div key={j} className="w-4 h-4 bg-gray-100 rounded-full" />)}</div>
-                  <div className="h-3 bg-gray-100 rounded-full w-full" />
-                  <div className="h-3 bg-gray-100 rounded-full w-4/5" />
+                <div key={i} className="animate-pulse rounded-2xl p-7 space-y-3" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
+                  <div className="flex gap-1">{[...Array(5)].map((_, j) => <div key={j} className="w-3.5 h-3.5 bg-white/8 rounded-full" />)}</div>
+                  <div className="h-2.5 bg-white/5 rounded-full w-full" />
+                  <div className="h-2.5 bg-white/5 rounded-full w-4/5" />
                   <div className="flex items-center gap-3 pt-2">
-                    <div className="w-10 h-10 bg-gray-100 rounded-full" />
+                    <div className="w-9 h-9 bg-white/8 rounded-full" />
                     <div className="space-y-1.5">
-                      <div className="h-3 bg-gray-100 rounded w-20" />
-                      <div className="h-2 bg-gray-100 rounded w-28" />
+                      <div className="h-2.5 bg-white/8 rounded w-20" />
+                      <div className="h-2 bg-white/5 rounded w-28" />
                     </div>
                   </div>
                 </div>
@@ -340,7 +454,7 @@ const About = () => {
             </div>
           ) : error ? (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">Failed to load testimonials.</p>
+              <p className="text-white/30 text-sm font-light">Failed to load testimonials.</p>
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
@@ -352,23 +466,47 @@ const About = () => {
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true }}
-                  className="rounded-2xl border border-gray-200 bg-white/80 backdrop-blur-sm p-7 hover:-translate-y-2 transition-all duration-300 hover:border-emerald-500/40 hover:shadow-[0_10px_40px_-10px_rgba(16,185,129,0.2)]"
+                  className="rounded-2xl p-7 transition-all duration-500 hover:-translate-y-2 group"
+                  style={{
+                    background: "linear-gradient(160deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.015) 100%)",
+                    border: "1px solid rgba(255,255,255,0.07)",
+                    boxShadow: "0 4px 24px rgba(0,0,0,0.3)",
+                  }}
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(52,211,153,0.2)";
+                    (e.currentTarget as HTMLElement).style.boxShadow = "0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(16,185,129,0.08)";
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.07)";
+                    (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 24px rgba(0,0,0,0.3)";
+                  }}
                 >
+                  {/* stars */}
                   <div className="flex items-center gap-1 mb-4">
                     {[...Array(5)].map((_, j) => (
-                      <Star key={j} size={14} className={j < (t.rating || 5) ? "text-yellow-400 fill-yellow-400" : "text-gray-200"} />
+                      <Star key={j} size={13} className={j < (t.rating || 5) ? "text-yellow-400 fill-yellow-400" : "text-white/10"} />
                     ))}
                   </div>
-                  <blockquote className="text-gray-600 text-sm leading-relaxed mb-5 italic line-clamp-4">
+
+                  <blockquote className="text-white/60 text-sm leading-relaxed mb-5 font-light line-clamp-4 italic">
                     "{t.content || 'No testimonial content available'}"
                   </blockquote>
-                  <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                    <div className="w-9 h-9 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
-                      <span className="text-emerald-600 font-bold text-sm">{t.name?.charAt(0) || '?'}</span>
+
+                  <div className="h-px bg-white/[0.07] mb-4" />
+
+                  <div className="flex items-center gap-3">
+                    <div
+                      className="w-9 h-9 rounded-full flex items-center justify-center shrink-0 text-emerald-400 font-bold text-sm"
+                      style={{
+                        background: "linear-gradient(135deg, rgba(16,185,129,0.15), rgba(5,150,105,0.08))",
+                        border: "1px solid rgba(16,185,129,0.2)",
+                      }}
+                    >
+                      {t.name?.charAt(0) || "?"}
                     </div>
                     <div>
-                      <p className="font-semibold text-sm text-gray-900">{t.name || 'Anonymous'}</p>
-                      <p className="text-xs text-gray-400">{t.role || 'Client'}{t.company ? ` · ${t.company}` : ''}</p>
+                      <p className="font-semibold text-[13px] text-white/80 tracking-wide">{t.name || "Anonymous"}</p>
+                      <p className="text-[11px] text-white/35 tracking-wide">{t.role || "Client"}{t.company ? ` · ${t.company}` : ""}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -379,29 +517,53 @@ const About = () => {
       </section>
 
       {/* ── CTA ── */}
-      <section className="py-16 md:py-20">
+      <section className="py-16 md:py-20 bg-white">
         <div className="container">
           <motion.div
-            className="max-w-3xl mx-auto text-center rounded-2xl border border-emerald-500/20 bg-gradient-to-br from-emerald-500/5 to-transparent p-10 md:p-14 relative overflow-hidden"
-            initial={{ opacity: 0, y: 20 }}
+            className="max-w-3xl mx-auto text-center rounded-3xl overflow-hidden relative"
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            style={{ background: "linear-gradient(135deg, #060d0b 0%, #0d2a1c 45%, #0f3d28 100%)" }}
           >
-            <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full blur-[80px] bg-emerald-500/20" />
-            <h2 className="text-2xl md:text-3xl font-bold mb-3 relative">Want to Work With Us?</h2>
-            <p className="text-muted-foreground mb-6 relative">
-              We're always excited to take on new challenges and build amazing things together.
-            </p>
-            <Link
-              to="/contact"
-              className="relative inline-flex items-center gap-2 px-6 py-3 rounded-full bg-emerald-500 text-white font-medium hover:bg-emerald-600 transition-colors hover:shadow-lg hover:shadow-emerald-500/25"
-            >
-              Get in Touch <ArrowRight size={16} />
-            </Link>
+            <BackgroundGrid color="rgba(52,211,153,1)" size="40px" className="absolute inset-0 opacity-[0.05] pointer-events-none" />
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(16,185,129,0.15) 0%, transparent 65%)" }}
+            />
+            <div
+              className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px"
+              style={{ background: "linear-gradient(90deg, transparent, rgba(52,211,153,0.5), transparent)" }}
+            />
+
+            <div className="relative px-8 py-14 md:px-16 md:py-20">
+              <motion.span
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4 }}
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/8 text-emerald-300 text-[11px] font-bold tracking-widest uppercase mb-6 backdrop-blur-sm"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(52,211,153,0.9)]" />
+                Join Us
+              </motion.span>
+              <h2 className="font-display text-2xl md:text-3xl font-bold text-white tracking-tight mb-3">
+                Want to Work With Us?
+              </h2>
+              <p className="text-white/40 mb-10 font-light leading-relaxed max-w-md mx-auto">
+                We're always excited to take on new challenges and build amazing things together.
+              </p>
+              <Link to="/contact">
+                <button className="inline-flex items-center gap-2.5 bg-emerald-500 hover:bg-emerald-400 text-black font-bold px-9 py-4 rounded-full text-sm transition-all duration-300 hover:shadow-[0_0_40px_rgba(52,211,153,0.4)] tracking-wide">
+                  Get in Touch <ArrowRight size={15} />
+                </button>
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>
+
     </div>
   );
 };
