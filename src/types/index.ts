@@ -73,8 +73,8 @@ export interface Project {
   category?: ProjectCategory
   techStack?: string[]
   featured?: boolean
-  githubUrl?: string
-  liveUrl?: string
+  githubUrl?: string;
+  projectUrl?: string;
 }
 
 export interface Service {
