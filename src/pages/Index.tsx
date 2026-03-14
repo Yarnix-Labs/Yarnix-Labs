@@ -7,21 +7,20 @@ import ParticleMeteorBackground from "@/components/ParticleMeteorBackground";
 import { useProjects } from "@/hooks/useProjects";
 import { useBlog } from "@/hooks/useBlog";
 import { useFeaturedTestimonials } from "@/hooks/useTestimonials";
+import { useServices } from "@/hooks/useServices";
 
 const Index = () => {
   const { projects, loading: projectsLoading } = useProjects();
-  const { featuredPost, otherPosts, loading: blogLoading } = useBlog();
+  const { posts, loading: blogLoading } = useBlog();
   const { testimonials, loading: testimonialsLoading } = useFeaturedTestimonials(3);
+  const { services, loading: servicesLoading } = useServices();
+
+  const iconMap: Record<string, React.ElementType> = {
+    Bot, Cog, Globe, Server, Smartphone, Search, Megaphone,
+  };
 
   const featuredProjects = projects?.slice(0, 3) || [];
-  const featuredPosts = otherPosts?.slice(0, 3) || [];
-
-  const services = [
-    { icon: Bot, title: "AI Tools & Solutions", desc: "Custom AI models, chatbots, and intelligent automation tailored to your business needs." },
-    { icon: Cog, title: "Business Automation", desc: "Streamline operations with intelligent workflows that save time and reduce costs." },
-    { icon: Globe, title: "Web Applications", desc: "Modern, scalable web apps built with cutting-edge technologies and best practices." },
-    { icon: Server, title: "DevOps Solutions", desc: "Cloud infrastructure, CI/CD pipelines, and monitoring for reliable deployments." },
-  ];
+  const featuredPosts = posts?.slice(0, 3) || [];
 
   return (
   <div>
@@ -79,18 +78,32 @@ const Index = () => {
           <p className="text-gray-500 max-w-xl mx-auto">Comprehensive AI and software development services to power your business.</p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.slice(0, 4).map((s) => (
-            <div key={s.title} className="relative group rounded-2xl p-7 hover:-translate-y-3 transition-all duration-500 ease-out bg-white border border-gray-200 hover:border-emerald-400/50 hover:shadow-[0_10px_40px_-10px_rgba(16,185,129,0.3)] cursor-pointer">
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-              <div className="relative">
-                <div className="w-14 h-14 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center mb-5 group-hover:bg-emerald-100 group-hover:border-emerald-300 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(52,211,153,0.3)] transition-all duration-500 ease-out">
-                  <s.icon size={26} className="text-emerald-600 transition-transform duration-500 group-hover:scale-110" />
-                </div>
-                <h3 className="font-semibold text-lg text-gray-900 mb-2">{s.title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">{s.desc}</p>
+          {servicesLoading ? (
+            [...Array(4)].map((_, i) => (
+              <div key={i} className="animate-pulse rounded-2xl p-7 bg-white border border-gray-200">
+                <div className="w-14 h-14 rounded-xl bg-gray-100 mb-5" />
+                <div className="h-4 bg-gray-200 rounded w-3/4 mb-3" />
+                <div className="h-3 bg-gray-100 rounded w-full mb-1" />
+                <div className="h-3 bg-gray-100 rounded w-5/6" />
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            services.slice(0, 4).map((s) => {
+              const IconComponent = iconMap[s.icon] || Bot;
+              return (
+                <div key={s._id} className="relative group rounded-2xl p-7 hover:-translate-y-3 transition-all duration-500 ease-out bg-white border border-gray-200 hover:border-emerald-400/50 hover:shadow-[0_10px_40px_-10px_rgba(16,185,129,0.3)] cursor-pointer">
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                  <div className="relative">
+                    <div className="w-14 h-14 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center mb-5 group-hover:bg-emerald-100 group-hover:border-emerald-300 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(52,211,153,0.3)] transition-all duration-500 ease-out">
+                      <IconComponent size={26} className="text-emerald-600 transition-transform duration-500 group-hover:scale-110" />
+                    </div>
+                    <h3 className="font-semibold text-lg text-gray-900 mb-2">{s.title}</h3>
+                    <p className="text-sm text-gray-500 leading-relaxed">{s.description}</p>
+                  </div>
+                </div>
+              );
+            })
+          )}
         </div>
         <div className="text-center mt-10">
           <Link to="/services" className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-black font-semibold px-8 py-3 rounded-full text-sm transition-colors">

@@ -337,6 +337,7 @@ const Services = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="[&_h2]:text-white [&_p]:text-white/55 [&_*]:text-white"
           >
             <SectionHeading title="Recent Projects" subtitle="See our latest work in action." />
           </motion.div>
@@ -407,32 +408,32 @@ const Services = () => {
 
                     {/* body */}
                     <div className="p-6 pt-5">
-                      <h3 className="font-sans font-semibold text-[13px] text-white/75 mb-1.5 tracking-wider uppercase">
+                      <h3 className="font-sans font-semibold text-[13px] text-white mb-1.5 tracking-wider uppercase">
                         {project.title}
                       </h3>
-                      <p className="text-[12px] text-white/30 mb-4 leading-relaxed line-clamp-2 font-light">
+                      <p className="text-[12px] text-white/55 mb-4 leading-relaxed line-clamp-2 font-light">
                         {project.description}
                       </p>
                       <div className="flex flex-wrap gap-1.5 mb-5">
                         {project.techStack?.slice(0, 3).map((tech: string) => (
                           <span
                             key={tech}
-                            className="text-[10px] px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/[0.07] text-white/35 font-medium tracking-wide"
+                            className="text-[10px] px-2.5 py-1 rounded-full bg-white/[0.08] border border-white/[0.12] text-white/65 font-medium tracking-wide"
                           >
                             {tech}
                           </span>
                         ))}
                       </div>
                       {/* horizontal rule */}
-                      <div className="h-px bg-white/[0.06] mb-4" />
+                      <div className="h-px bg-white/[0.10] mb-4" />
                       <div className="flex items-center gap-4">
                         <Link
                           to={`/projects/${project.slug.current}`}
-                          className="inline-flex items-center gap-1.5 text-[11px] text-emerald-400/60 font-semibold hover:text-emerald-300 transition-colors uppercase tracking-widest"
+                          className="inline-flex items-center gap-1.5 text-[11px] text-emerald-400 font-semibold hover:text-emerald-300 transition-colors uppercase tracking-widest"
                         >
                           View Details <ExternalLink size={11} />
                         </Link>
-                        <button className="ml-auto inline-flex items-center gap-1.5 text-[11px] px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/15 text-emerald-400/70 font-semibold hover:bg-emerald-500/18 hover:text-emerald-300 transition-all uppercase tracking-widest">
+                        <button className="ml-auto inline-flex items-center gap-1.5 text-[11px] px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/25 text-emerald-300 font-semibold hover:bg-emerald-500/25 hover:text-emerald-200 transition-all uppercase tracking-widest">
                           Live Demo <ArrowRight size={11} />
                         </button>
                       </div>
