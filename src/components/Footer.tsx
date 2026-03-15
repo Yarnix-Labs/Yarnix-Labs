@@ -36,7 +36,10 @@ const Footer = () => (
               <img src={logo} alt="YarnixLabs logo" className="h-10 w-10 relative z-10" />
             </div>
             <div className="flex flex-col leading-tight">
-              <span className="text-lg font-bold text-emerald-400">YarnixLabs</span>
+              <span className="text-lg font-bold">
+                <span className="text-white">Yarnix</span>
+                <span className="text-emerald-500">Labs</span>
+              </span>
               <span className="text-[10px] font-medium tracking-[0.2em] text-white/40 uppercase">Innovation Studio</span>
             </div>
           </Link>
