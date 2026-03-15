@@ -105,7 +105,7 @@ const About = () => {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display uppercase text-4xl sm:text-5xl lg:text-6xl leading-[0.92] tracking-tight text-white font-semibold"
+              className="font-display uppercase text-3xl sm:text-4xl lg:text-5xl leading-[0.92] tracking-tight text-white font-semibold"
             >
               About{" "}
               <span
@@ -388,10 +388,10 @@ const About = () => {
 
                   {/* info */}
                   <div className="p-5 pt-4">
-                    <h4 className="font-semibold text-[13px] uppercase tracking-wider text-zinc-800 truncate">{m.name}</h4>
-                    <p className="text-xs text-emerald-600 font-semibold mt-1 truncate tracking-wide">{m.role}</p>
+                    <h4 className="font-semibold text-[13px] uppercase tracking-wider text-zinc-800">{m.name}</h4>
+                    <p className="text-xs text-emerald-600 font-semibold mt-1 tracking-wide">{m.role}</p>
                     {m.description && (
-                      <p className="text-xs text-zinc-400 leading-relaxed mt-2 line-clamp-2 font-light">{m.description}</p>
+                      <p className="text-xs text-zinc-400 leading-relaxed mt-2 font-light">{m.description}</p>
                     )}
                   </div>
                 </motion.div>

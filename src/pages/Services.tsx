@@ -75,7 +75,7 @@ const Services = () => {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display uppercase text-5xl sm:text-6xl lg:text-7xl leading-[0.9] tracking-tight text-white font-semibold"
+              className="font-display uppercase text-4xl sm:text-5xl lg:text-6xl leading-[0.9] tracking-tight text-white font-semibold"
             >
               Our{" "}
               <span

@@ -85,7 +85,7 @@ const Index = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display uppercase text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-[0.95] tracking-wide text-white font-medium"
+              className="font-display uppercase text-3xl sm:text-4xl lg:text-5xl leading-[0.95] tracking-wide text-white font-medium"
             >
               Building Smart{" "}
               <span

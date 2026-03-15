@@ -111,7 +111,7 @@ const Blog = () => {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] as const }}
-              className="font-display uppercase text-4xl sm:text-5xl lg:text-6xl leading-[0.92] tracking-tight text-white font-semibold"
+              className="font-display uppercase text-3xl sm:text-4xl lg:text-5xl leading-[0.92] tracking-tight text-white font-semibold"
             >
               Latest{" "}
               <span

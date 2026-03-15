@@ -19,7 +19,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
-        display: ["Bebas Neue", "Impact", "sans-serif"],
+        display: ["Oswald", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
