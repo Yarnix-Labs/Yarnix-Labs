@@ -5,6 +5,7 @@ import SectionHeading from "@/components/SectionHeading";
 import ParticleMeteorBackground from "@/components/ParticleMeteorBackground";
 import AnimatedBook from "@/components/AnimatedBook";
 import { useBlog } from "@/hooks/useBlog";
+import { sanityImg } from "@/lib/sanity";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -53,12 +54,6 @@ const Blog = () => {
     return `${Math.max(1, Math.ceil(wordCount / wordsPerMinute))} min read`;
   };
 
-  const sanityImg = (ref: string) =>
-    `https://cdn.sanity.io/images/v7q2gijs/production/${ref
-      .replace("image-", "")
-      .replace("-jpg", ".jpg")
-      .replace("-png", ".png")
-      .replace("-webp", ".webp")}`;
 
   if (error) {
     return (

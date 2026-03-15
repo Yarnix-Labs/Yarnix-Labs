@@ -9,6 +9,7 @@ import { useBlog } from "@/hooks/useBlog";
 import { useFeaturedTestimonials } from "@/hooks/useTestimonials";
 import { useServices } from "@/hooks/useServices";
 import BackgroundGrid from "@/components/BackgroundGrid";
+import { sanityImg } from "@/lib/sanity";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -33,12 +34,6 @@ const Index = () => {
   const featuredProjects = projects?.slice(0, 3) || [];
   const featuredPosts = posts?.slice(0, 3) || [];
 
-  const sanityImg = (ref: string) =>
-    `https://cdn.sanity.io/images/v7q2gijs/production/${ref
-      .replace("image-", "")
-      .replace("-jpg", ".jpg")
-      .replace("-png", ".png")
-      .replace("-webp", ".webp")}`;
 
   return (
     <div className="antialiased">

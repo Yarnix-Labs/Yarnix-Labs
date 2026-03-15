@@ -7,6 +7,7 @@ import SectionHeading from "@/components/SectionHeading";
 import { useProjects } from "@/hooks/useProjects";
 import { useServices } from "@/hooks/useServices";
 import BackgroundGrid from "@/components/BackgroundGrid";
+import { sanityImg } from "@/lib/sanity";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -261,11 +262,7 @@ const Services = () => {
                   >
                     {service.image?.asset?._ref ? (
                       <img
-                        src={`https://cdn.sanity.io/images/v7q2gijs/production/${service.image.asset._ref
-                          .replace("image-", "")
-                          .replace("-jpg", ".jpg")
-                          .replace("-png", ".png")
-                          .replace("-webp", ".webp")}`}
+                        src={sanityImg(service.image.asset._ref)}
                         alt={service.title}
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                       />
@@ -308,28 +305,28 @@ const Services = () => {
 
       {/* ── Projects Showcase ── */}
       <section
-        className="py-20 md:py-32 relative overflow-hidden"
+        className="py-20 md:py-28 relative overflow-hidden"
         style={{ background: "linear-gradient(180deg, #070e0c 0%, #0b1a13 100%)" }}
       >
-        <BackgroundGrid color="rgba(52,211,153,1)" size="64px" />
+        <BackgroundGrid color="rgba(52,211,153,1)" size="64px" fade={false} className="opacity-[0.03]" />
         <div
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] pointer-events-none"
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[400px] pointer-events-none"
           style={{ background: "radial-gradient(ellipse, rgba(16,185,129,0.07) 0%, transparent 70%)" }}
         />
 
         <div className="container relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="[&_h2]:text-white [&_p]:text-white/55 [&_*]:text-white"
+            transition={{ duration: 0.6 }}
+            className="mb-12 [&_h2]:text-white [&_p]:text-white/50"
           >
             <SectionHeading title="Recent Projects" subtitle="See our latest work in action." />
           </motion.div>
 
           <motion.div
-            className="grid md:grid-cols-3 gap-6 mt-12"
+            className="grid md:grid-cols-3 gap-6"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
@@ -337,20 +334,15 @@ const Services = () => {
           >
             {projectsLoading
               ? [...Array(3)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="rounded-2xl overflow-hidden animate-pulse"
-                    style={{ background: "rgba(255,255,255,0.03)" }}
-                  >
+                  <div key={i} className="animate-pulse rounded-2xl overflow-hidden" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
                     <div className="h-52 bg-white/5" />
                     <div className="p-6 space-y-3">
                       <div className="h-3.5 bg-white/8 rounded-full w-3/4" />
                       <div className="h-2.5 bg-white/5 rounded-full w-full" />
-                      <div className="h-2.5 bg-white/5 rounded-full w-4/5" />
                     </div>
                   </div>
                 ))
-              : projects?.slice(0, 3).map((project, i) => (
+              : projects?.slice(0, 3).map((project) => (
                   <motion.div
                     key={project._id}
                     variants={itemVariants}
@@ -369,20 +361,11 @@ const Services = () => {
                       (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 24px rgba(0,0,0,0.3)";
                     }}
                   >
-                    {/* image */}
                     <div className="relative h-52 overflow-hidden bg-black/20">
                       <img
-                        src={
-                          project.image?.asset?._ref
-                            ? `https://cdn.sanity.io/images/v7q2gijs/production/${project.image.asset._ref
-                                .replace("image-", "")
-                                .replace("-jpg", ".jpg")
-                                .replace("-png", ".png")
-                                .replace("-webp", ".webp")}`
-                            : "/placeholder.jpg"
-                        }
+                        src={project.image?.asset?._ref ? sanityImg(project.image.asset._ref) : "/placeholder.jpg"}
                         alt={project.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-107 opacity-75 group-hover:opacity-90"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-75 group-hover:opacity-90"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#070e0c] via-[#070e0c]/30 to-transparent" />
                       {project.category && (
@@ -391,8 +374,6 @@ const Services = () => {
                         </span>
                       )}
                     </div>
-
-                    {/* body */}
                     <div className="p-6 pt-5">
                       <h3 className="font-sans font-semibold text-[13px] text-white mb-1.5 tracking-wider uppercase">
                         {project.title}
@@ -402,16 +383,12 @@ const Services = () => {
                       </p>
                       <div className="flex flex-wrap gap-1.5 mb-5">
                         {project.techStack?.slice(0, 3).map((tech: string) => (
-                          <span
-                            key={tech}
-                            className="text-[10px] px-2.5 py-1 rounded-full bg-white/[0.08] border border-white/[0.12] text-white/65 font-medium tracking-wide"
-                          >
+                          <span key={tech} className="text-[10px] px-2.5 py-1 rounded-full bg-white/[0.06] border border-white/[0.09] text-white/55 font-medium tracking-wide">
                             {tech}
                           </span>
                         ))}
                       </div>
-                      {/* horizontal rule */}
-                      <div className="h-px bg-white/[0.10] mb-4" />
+                      <div className="h-px bg-white/[0.08] mb-4" />
                       <div className="flex items-center gap-4">
                         <Link
                           to={`/projects/${project.slug.current}`}
@@ -419,7 +396,7 @@ const Services = () => {
                         >
                           View Details <ExternalLink size={11} />
                         </Link>
-                        <button className="ml-auto inline-flex items-center gap-1.5 text-[11px] px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/25 text-emerald-300 font-semibold hover:bg-emerald-500/25 hover:text-emerald-200 transition-all uppercase tracking-widest">
+                        <button className="ml-auto inline-flex items-center gap-1.5 text-[11px] px-3.5 py-1.5 rounded-full bg-emerald-500/12 border border-emerald-500/20 text-emerald-300 font-semibold hover:bg-emerald-500/20 transition-all uppercase tracking-widest">
                           Live Demo <ArrowRight size={11} />
                         </button>
                       </div>
@@ -429,7 +406,7 @@ const Services = () => {
           </motion.div>
 
           <motion.div
-            className="text-center mt-14"
+            className="text-center mt-12"
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
