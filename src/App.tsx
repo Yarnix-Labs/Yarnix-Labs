@@ -8,6 +8,7 @@ import TopBar from "@/components/TopBar";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import BackToTop from "@/components/BackToTop";
 import PageTransition from "@/components/PageTransition";
 import ScrollToTop from "@/components/ScrollToTop";
 import SplashScreen from "@/components/SplashScreen";
@@ -47,6 +48,7 @@ const AppContent = () => {
       </main>
       <Footer />
       <WhatsAppButton />
+      <BackToTop />
     </>
   );
 };

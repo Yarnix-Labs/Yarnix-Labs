@@ -112,11 +112,15 @@ const Index = () => {
                   View Our Projects <ArrowRight size={16} />
                 </button>
               </Link>
-              <Link to="/contact">
+              <a 
+                href="https://wa.me/94740246010?text=Hello%20YarnixLabs!%20I'd%20like%20to%20book%20a%20free%20consultation%20to%20discuss%20my%20next%20project."
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <button className="inline-flex items-center gap-2.5 border border-white/15 bg-white/[0.05] hover:bg-white/[0.09] text-white/80 font-semibold px-8 py-4 rounded-full text-sm transition-all duration-300 backdrop-blur-sm tracking-wide">
-                  Get Free Consultation
+                  Book Free Consultation
                 </button>
-              </Link>
+              </a>
             </motion.div>
 
             {/* shimmer line */}
@@ -681,11 +685,15 @@ const Index = () => {
               </p>
 
               <div className="flex flex-wrap gap-4 justify-center">
-                <Link to="/contact">
+                <a 
+                  href="https://wa.me/94740246010?text=Hello%20YarnixLabs!%20I'd%20like%20to%20discuss%20a%20new%20project."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <button className="inline-flex items-center gap-2.5 bg-emerald-500 hover:bg-emerald-400 text-black font-bold px-8 py-4 rounded-full text-sm transition-all duration-300 hover:shadow-[0_0_40px_rgba(52,211,153,0.4)] tracking-wide">
-                    Contact Us <ArrowRight size={15} />
+                    Book a Call <ArrowRight size={15} />
                   </button>
-                </Link>
+                </a>
                 <Link to="/projects">
                   <button className="inline-flex items-center gap-2.5 border border-white/15 bg-white/[0.04] hover:bg-white/[0.08] text-white/80 font-semibold px-8 py-4 rounded-full text-sm transition-all duration-300 backdrop-blur-sm tracking-wide">
                     View Projects
