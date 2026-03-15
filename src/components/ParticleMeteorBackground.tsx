@@ -169,9 +169,14 @@ const ParticleMeteorBackground = () => {
     createParticles();
     draw();
 
+    let lastWidth = window.innerWidth;
     const handleResize = () => {
-      resize();
-      createParticles();
+      const currentWidth = window.innerWidth;
+      if (currentWidth !== lastWidth) {
+        resize();
+        createParticles();
+        lastWidth = currentWidth;
+      }
     };
 
     window.addEventListener("resize", handleResize);

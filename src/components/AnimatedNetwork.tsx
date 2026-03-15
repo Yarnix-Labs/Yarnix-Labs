@@ -98,10 +98,11 @@ const OrbitDots = ({ count = 50 }: { count?: number }) => {
 
 const AnimatedNetwork = () => {
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+  const camera = useMemo(() => ({ position: [0, 0, isMobile ? 7 : 6] as [number, number, number], fov: 45 }), [isMobile]);
 
   return (
-    <div className="w-full h-[250px] sm:h-[350px] lg:h-[400px]">
-      <Canvas camera={{ position: [0, 0, isMobile ? 7 : 6], fov: 45 }} dpr={isMobile ? 1 : Math.min(window.devicePixelRatio, 2)}>
+    <div className="w-full h-[300px] sm:h-[350px] lg:h-[400px] cursor-pointer">
+      <Canvas camera={camera} dpr={isMobile ? 1 : Math.min(window.devicePixelRatio, 2)}>
         <ambientLight intensity={0.4} />
         <directionalLight position={[5, 3, 5]} intensity={1} />
         <pointLight position={[-5, -3, -5]} intensity={0.3} color="#34d399" />

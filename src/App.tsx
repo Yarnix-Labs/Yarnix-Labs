@@ -25,17 +25,6 @@ const queryClient = new QueryClient();
 
 const AppContent = () => {
   const location = useLocation();
-  const [topBarVisible, setTopBarVisible] = useState(true);
-
-  useEffect(() => {
-    let lastY = 0;
-    const onScroll = () => {
-      setTopBarVisible(window.scrollY < lastY || window.scrollY < 50);
-      lastY = window.scrollY;
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   return (
     <>

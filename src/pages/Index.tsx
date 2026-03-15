@@ -45,7 +45,7 @@ const Index = () => {
 
       {/* ── Hero ── */}
       <section
-        className="relative min-h-screen flex items-center pt-20 text-white overflow-hidden"
+        className="relative min-h-[100svh] flex items-center pt-20 text-white overflow-hidden"
         style={{ background: "linear-gradient(135deg, #070e0c 0%, #0b2318 50%, #0f3d28 100%)" }}
       >
         <ParticleMeteorBackground />

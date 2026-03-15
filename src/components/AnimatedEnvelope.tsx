@@ -106,10 +106,11 @@ const ContactParticles = ({ count = 40 }: { count?: number }) => {
 
 const AnimatedEnvelope = () => {
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+  const camera = useMemo(() => ({ position: [0, 0, isMobile ? 6.5 : 5.5] as [number, number, number], fov: 45 }), [isMobile]);
 
   return (
-    <div className="w-full h-[250px] sm:h-[350px] lg:h-[400px]">
-      <Canvas camera={{ position: [0, 0, isMobile ? 6.5 : 5.5], fov: 45 }} dpr={isMobile ? 1 : Math.min(window.devicePixelRatio, 2)}>
+    <div className="w-full h-[300px] sm:h-[350px] lg:h-[400px] cursor-pointer">
+      <Canvas camera={camera} dpr={isMobile ? 1 : Math.min(window.devicePixelRatio, 2)}>
         <ambientLight intensity={0.4} />
         <directionalLight position={[5, 3, 5]} intensity={1} />
         <pointLight position={[-3, 2, -3]} intensity={0.4} color="#34d399" />

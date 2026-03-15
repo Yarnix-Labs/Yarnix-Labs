@@ -38,8 +38,8 @@ const Services = () => {
 
       {/* ── Hero ── */}
       <section
-        className="relative min-h-[56vh] flex items-center pt-20 text-white overflow-hidden"
-        style={{ background: "linear-gradient(135deg, #070e0c 0%, #0b2318 50%, #0f3d28 100%)" }}
+        className="relative min-h-[500px] sm:min-h-[65svh] flex items-center pt-24 text-white overflow-hidden"
+        style={{ background: "linear-gradient(135deg, #0b1411 0%, #0f2d1f 50%, #134e35 100%)" }}
       >
         <ParticleMeteorBackground />
 

@@ -22,7 +22,7 @@ const Contact = () => {
 
       {/* ── Hero ── */}
       <section
-        className="relative min-h-[55vh] flex items-center pt-20 text-white overflow-hidden"
+        className="relative min-h-[500px] sm:min-h-[60svh] flex items-center pt-20 text-white overflow-hidden"
         style={{ background: "linear-gradient(135deg, #0b1411 0%, #0f2d1f 50%, #134e35 100%)" }}
       >
         <ParticleMeteorBackground />

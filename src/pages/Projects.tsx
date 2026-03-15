@@ -25,7 +25,7 @@ const Projects = () => {
 
       {/* ── Hero ── */}
       <section
-        className="relative min-h-[50vh] flex items-center pt-20 text-white overflow-hidden"
+        className="relative min-h-[450px] sm:min-h-[55svh] flex items-center pt-20 text-white overflow-hidden"
         style={{ background: "linear-gradient(135deg, #0b1411 0%, #0f2d1f 50%, #134e35 100%)" }}
       >
         <ParticleMeteorBackground />
