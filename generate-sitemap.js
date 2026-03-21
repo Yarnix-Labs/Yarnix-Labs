@@ -22,18 +22,18 @@ const staticRoutes = [
   { path: '/contact', priority: '0.7', changefreq: 'yearly' }
 ];
 
-// Dynamic routes (these would typically come from your CMS/database)
-// For now, adding placeholder entries - you should update these with actual content
+// Dynamic routes (real blog posts and projects)
 const dynamicRoutes = [
-  // Example blog posts - replace with actual blog post slugs
-  { path: '/blog/getting-started-with-react', priority: '0.7', changefreq: 'monthly' },
-  { path: '/blog/web-development-best-practices', priority: '0.7', changefreq: 'monthly' },
-  { path: '/blog/modern-javascript-techniques', priority: '0.7', changefreq: 'monthly' },
+  // Real blog posts
+  { path: '/blog/agentic-ai-in-software-development-2026-what-every-tech-company-needs-to-know', priority: '0.8', changefreq: 'monthly' },
+  { path: '/blog/how-ai-is-changing-devops-in-2026', priority: '0.8', changefreq: 'monthly' },
   
-  // Example project details - replace with actual project slugs
-  { path: '/projects/ecommerce-platform', priority: '0.8', changefreq: 'monthly' },
-  { path: '/projects/mobile-app-development', priority: '0.8', changefreq: 'monthly' },
-  { path: '/projects/enterprise-portal', priority: '0.8', changefreq: 'monthly' }
+  // Real project details
+  { path: '/projects/ravlanka-travels-tourism-website', priority: '0.8', changefreq: 'monthly' },
+  { path: '/projects/crystal-ceylon-tours-tourism-website', priority: '0.8', changefreq: 'monthly' },
+  { path: '/projects/nss-fitness-centre-gym-website', priority: '0.8', changefreq: 'monthly' },
+  { path: '/projects/cinema-hub-subtitle-download-website', priority: '0.8', changefreq: 'monthly' },
+  { path: '/projects/helamart-lk-ecommerce-website', priority: '0.8', changefreq: 'monthly' }
 ];
 
 // Combine all routes
