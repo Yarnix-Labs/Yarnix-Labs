@@ -45,25 +45,12 @@ const Navbar = ({ topBarVisible = true }: NavbarProps) => {
     >
       <nav className="container h-full flex items-center justify-between px-6 lg:px-8">
         <Link to="/" className="flex items-center gap-3 tracking-tight group">
-          <div className="relative flex items-center justify-center p-1">
-            <div className={cn(
-              "absolute inset-0 bg-emerald-500/20 rounded-full blur-lg transition-all duration-500",
-              scrolled ? "scale-75 opacity-50" : "scale-100 opacity-100"
-            )} />
+          <div className="relative flex items-center justify-center">
             <img 
               src={logo} 
               alt="YarnixLabs logo" 
-              className={cn("transition-all duration-500 relative z-10 object-contain", scrolled ? "h-9 w-9" : "h-11 w-11")} 
+              className={cn("transition-all duration-500 relative z-10 object-contain", scrolled ? "h-20 w-20" : "h-28 w-28")} 
             />
-          </div>
-          <div className="flex flex-col leading-none">
-            <span className={cn("font-bold tracking-tight transition-all duration-500", scrolled ? "text-base" : "text-lg")}>
-              <span className="text-white">Yarnix</span>
-              <span className="text-emerald-500">Labs</span>
-            </span>
-            <span className="text-[8px] md:text-[9px] font-medium tracking-[0.25em] text-emerald-400 uppercase mt-1">
-              Innovation Studio
-            </span>
           </div>
         </Link>
 

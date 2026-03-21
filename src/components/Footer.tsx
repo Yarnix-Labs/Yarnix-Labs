@@ -32,15 +32,7 @@ const Footer = () => (
         <div className="col-span-2 md:col-span-2">
           <Link to="/" className="flex items-center gap-3 group">
             <div className="relative">
-              <div className="absolute inset-0 bg-emerald-500/30 rounded-full blur-lg group-hover:bg-emerald-500/50 transition-all duration-500" />
-              <img src={logo} alt="YarnixLabs logo" className="h-10 w-10 relative z-10" />
-            </div>
-            <div className="flex flex-col leading-tight">
-              <span className="text-lg font-bold">
-                <span className="text-white">Yarnix</span>
-                <span className="text-emerald-500">Labs</span>
-              </span>
-              <span className="text-[10px] font-medium tracking-[0.2em] text-white/40 uppercase">Innovation Studio</span>
+              <img src={logo} alt="YarnixLabs logo" className="h-40 w-40 relative z-10" />
             </div>
           </Link>
           <p className="mt-4 text-sm text-white/50 leading-relaxed max-w-xs">

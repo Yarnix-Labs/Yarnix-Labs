@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect } from "react";
+import logo from "@/assets/logo.png";
 
 const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
   useEffect(() => {
@@ -7,18 +8,7 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
     return () => clearTimeout(t);
   }, [onComplete]);
 
-  const letterVariants = {
-    hidden: { opacity: 0, y: 40, rotateX: -90 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      rotateX: 0,
-      transition: { delay: 0.3 + i * 0.06, duration: 0.5, ease: "easeOut" as const },
-    }),
-  };
-
   const welcomeText = "Welcome to";
-  const brandText = "YarnixLabs";
 
   return (
     <motion.div
@@ -36,45 +26,41 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
       />
 
       {/* "Welcome to" */}
-      <div className="flex gap-1 mb-4 relative z-10 overflow-hidden">
-        {welcomeText.split("").map((char, i) => (
-          <motion.span
-            key={`w-${i}`}
-            custom={i}
-            variants={letterVariants}
-            initial="hidden"
-            animate="visible"
-            className="text-emerald-400/70 text-lg md:text-xl uppercase tracking-[0.3em] font-medium"
-          >
-            {char === " " ? "\u00A0" : char}
-          </motion.span>
-        ))}
-      </div>
+      <motion.p
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 0.6 }}
+        className="text-emerald-400/70 text-sm md:text-base uppercase tracking-[0.4em] font-medium mb-8 relative z-10"
+      >
+        {welcomeText}
+      </motion.p>
 
-      {/* Brand name - letter by letter */}
-      <div className="flex gap-0.5 relative z-10 overflow-hidden">
-        {brandText.split("").map((char, i) => (
-          <motion.span
-            key={`b-${i}`}
-            custom={i + welcomeText.length}
-            variants={letterVariants}
-            initial="hidden"
-            animate="visible"
-            className={`text-5xl sm:text-6xl md:text-7xl font-bold tracking-wide ${
-              i >= 6 ? "text-emerald-400" : "text-white"
-            }`}
-          >
-            {char}
-          </motion.span>
-        ))}
+      {/* Brand Logo - Animated */}
+      <div className="relative z-10">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
+          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+          transition={{ 
+            delay: 0.8, 
+            duration: 1.2, 
+            ease: [0.22, 1, 0.36, 1] 
+          }}
+          className="relative"
+        >
+          <img 
+            src={logo} 
+            alt="YarnixLabs Logo" 
+            className="h-80 w-80 md:h-[500px] md:w-[500px] object-contain relative z-10" 
+          />
+        </motion.div>
       </div>
 
       {/* Tagline fade up */}
       <motion.p
-        className="text-white/40 text-sm mt-6 relative z-10"
+        className="text-white/40 text-sm mt-10 relative z-10 tracking-[0.1em]"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.8, duration: 0.6 }}
+        transition={{ delay: 2, duration: 0.6 }}
       >
         Building Intelligent Solutions
       </motion.p>
@@ -84,7 +70,7 @@ const SplashScreen = ({ onComplete }: { onComplete: () => void }) => {
         className="absolute inset-0 bg-black z-20 pointer-events-none"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2.6, duration: 0.6 }}
+        transition={{ delay: 2.8, duration: 0.4 }}
       />
     </motion.div>
   );
