@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Configuration
-const DOMAIN = 'https://www.yarnix-labs.com';
+const DOMAIN = 'https://www.yarnixlabs.com';
 const PUBLIC_DIR = path.join(__dirname, 'public');
 const SITEMAP_PATH = path.join(PUBLIC_DIR, 'sitemap.xml');
 
