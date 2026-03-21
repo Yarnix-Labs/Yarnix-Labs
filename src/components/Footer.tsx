@@ -32,7 +32,7 @@ const Footer = () => (
         <div className="col-span-2 md:col-span-2">
           <Link to="/" className="flex items-center gap-3 group">
             <div className="relative">
-              <img src={logo} alt="YarnixLabs logo" className="h-40 w-40 relative z-10" />
+              <img src={logo} alt="YarnixLabs logo" className="h-24 w-24 relative z-10" />
             </div>
           </Link>
           <p className="mt-4 text-sm text-white/50 leading-relaxed max-w-xs">
