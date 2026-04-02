@@ -132,7 +132,7 @@ export const generateStructuredData = {
 export const SEO_CONSTANTS = {
   SITE_NAME: 'Yarnix Labs',
   SITE_URL: 'https://www.yarnix-labs.com',
-  DEFAULT_IMAGE: 'https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/bd76f503-6b6a-41b0-abb2-f29906bb9fd0/id-preview-0f05dd65--138fc60e-0322-4585-a3a0-b9c57c01bf45.lovable.app-1771269943080.png',
+  DEFAULT_IMAGE: '/favicon.png',
   TWITTER_HANDLE: '@yarnixlabs',
   DEFAULT_KEYWORDS: [
     'AI development',

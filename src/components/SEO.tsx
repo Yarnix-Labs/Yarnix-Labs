@@ -53,7 +53,7 @@ const SEO: React.FC<SEOProps> = ({
   title = 'Yarnix Labs - AI & Software Solutions | Custom Development Services',
   description = 'Yarnix Labs builds cutting-edge AI and software solutions for modern businesses. Expert AI development, custom web applications, automation, and DevOps services. Transform your business with innovative technology.',
   keywords = 'AI development, software solutions, web development, custom applications, automation, DevOps, machine learning, artificial intelligence, business technology, digital transformation',
-  image = 'https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/bd76f503-6b6a-41b0-abb2-f29906bb9fd0/id-preview-0f05dd65--138fc60e-0322-4585-a3a0-b9c57c01bf45.lovable.app-1771269943080.png',
+  image = '/favicon.png',
   imageAlt = 'Yarnix Labs - AI & Software Solutions',
   type = 'website',
   publishedTime,

@@ -9,7 +9,12 @@
   "orientation": "portrait-primary",
   "scope": "/",
   "lang": "en",
-  "categories": ["technology", "business", "software", "ai"],
+  "categories": [
+    "technology",
+    "business",
+    "software",
+    "ai"
+  ],
   "icons": [
     {
       "src": "/favicon.png",
@@ -30,30 +35,36 @@
       "short_name": "Services",
       "description": "View our AI and software development services",
       "url": "/services",
-      "icons": [{ "src": "/favicon.png", "sizes": "96x96" }]
+      "icons": [
+        {
+          "src": "/favicon.png",
+          "sizes": "96x96"
+        }
+      ]
     },
     {
       "name": "Projects",
       "short_name": "Projects",
       "description": "View our portfolio of projects",
       "url": "/projects",
-      "icons": [{ "src": "/favicon.png", "sizes": "96x96" }]
+      "icons": [
+        {
+          "src": "/favicon.png",
+          "sizes": "96x96"
+        }
+      ]
     },
     {
       "name": "Contact",
       "short_name": "Contact",
       "description": "Get in touch with our team",
       "url": "/contact",
-      "icons": [{ "src": "/favicon.png", "sizes": "96x96" }]
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/bd76f503-6b6a-41b0-abb2-f29906bb9fd0/id-preview-0f05dd65--138fc60e-0322-4585-a3a0-b9c57c01bf45.lovable.app-1771269943080.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "Yarnix Labs Homepage"
+      "icons": [
+        {
+          "src": "/favicon.png",
+          "sizes": "96x96"
+        }
+      ]
     }
   ]
 }
