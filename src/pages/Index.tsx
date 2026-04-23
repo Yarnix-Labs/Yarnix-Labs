@@ -113,7 +113,7 @@ const Index = () => {
                 </button>
               </Link>
               <a 
-                href="https://wa.me/94740246010?text=Hello%20YarnixLabs!%20I'd%20like%20to%20book%20a%20free%20consultation%20to%20discuss%20my%20next%20project."
+                href="https://wa.me/94758121435?text=Hello%20YarnixLabs!%20I'd%20like%20to%20book%20a%20free%20consultation%20to%20discuss%20my%20next%20project."
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -686,7 +686,7 @@ const Index = () => {
 
               <div className="flex flex-wrap gap-4 justify-center">
                 <a 
-                  href="https://wa.me/94740246010?text=Hello%20YarnixLabs!%20I'd%20like%20to%20discuss%20a%20new%20project."
+                  href="https://wa.me/94758121435?text=Hello%20YarnixLabs!%20I'd%20like%20to%20discuss%20a%20new%20project."
                   target="_blank"
                   rel="noopener noreferrer"
                 >

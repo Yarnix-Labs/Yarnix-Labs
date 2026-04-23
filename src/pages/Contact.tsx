@@ -138,41 +138,44 @@ const Contact = () => {
                 <p className="text-zinc-400 text-sm font-light">Failed to load contact information.</p>
               </div>
             ) : (
-              contactInfo.map((item, i) => {
-                const IconComponent = iconMap[item.icon];
-                return (
-                  <motion.div
-                    key={item._id}
-                    initial={{ opacity: 0, y: 28 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.08, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                    className="rounded-2xl bg-white border border-zinc-200/60 p-6 text-center transition-all duration-500 hover:-translate-y-2 group"
-                    style={{ boxShadow: "0 2px 16px rgba(0,0,0,0.04)" }}
-                    onMouseEnter={e => {
-                      (e.currentTarget as HTMLElement).style.borderColor = "rgba(16,185,129,0.25)";
-                      (e.currentTarget as HTMLElement).style.boxShadow = "0 16px 48px rgba(0,0,0,0.08), 0 0 32px rgba(16,185,129,0.09)";
-                    }}
-                    onMouseLeave={e => {
-                      (e.currentTarget as HTMLElement).style.borderColor = "rgba(228,228,231,0.6)";
-                      (e.currentTarget as HTMLElement).style.boxShadow = "0 2px 16px rgba(0,0,0,0.04)";
-                    }}
-                  >
-                    <div
-                      className="w-12 h-12 rounded-2xl flex items-center justify-center mx-auto mb-4 transition-all duration-500 group-hover:scale-110"
-                      style={{
-                        background: "linear-gradient(135deg, rgba(16,185,129,0.12), rgba(5,150,105,0.06))",
-                        border: "1px solid rgba(16,185,129,0.2)",
-                      }}
-                    >
-                      {IconComponent && <IconComponent className="text-emerald-600" size={20} strokeWidth={1.75} />}
-                    </div>
-                    <p className="text-[10px] text-zinc-400 uppercase tracking-widest mb-1.5 font-semibold">{item.label}</p>
-                    <p className="font-semibold text-zinc-800 text-sm mb-1">{item.value}</p>
-                    <p className="text-[11px] text-zinc-400 font-light">{item.description}</p>
-                  </motion.div>
-                );
-              })
+                  contactInfo.map((item, i) => {
+                    const IconComponent = iconMap[item.icon];
+                    // Hardcoded override for phone number
+                    const displayValue = item.label.toLowerCase() === 'phone' ? '+94 758 121 435' : item.value;
+                    
+                    return (
+                      <motion.div
+                        key={item._id}
+                        initial={{ opacity: 0, y: 28 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.08, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                        className="rounded-2xl bg-white border border-zinc-200/60 p-6 text-center transition-all duration-500 hover:-translate-y-2 group"
+                        style={{ boxShadow: "0 2px 16px rgba(0,0,0,0.04)" }}
+                        onMouseEnter={e => {
+                          (e.currentTarget as HTMLElement).style.borderColor = "rgba(16,185,129,0.25)";
+                          (e.currentTarget as HTMLElement).style.boxShadow = "0 16px 48px rgba(0,0,0,0.08), 0 0 32px rgba(16,185,129,0.09)";
+                        }}
+                        onMouseLeave={e => {
+                          (e.currentTarget as HTMLElement).style.borderColor = "rgba(228,228,231,0.6)";
+                          (e.currentTarget as HTMLElement).style.boxShadow = "0 2px 16px rgba(0,0,0,0.04)";
+                        }}
+                      >
+                        <div
+                          className="w-12 h-12 rounded-2xl flex items-center justify-center mx-auto mb-4 transition-all duration-500 group-hover:scale-110"
+                          style={{
+                            background: "linear-gradient(135deg, rgba(16,185,129,0.12), rgba(5,150,105,0.06))",
+                            border: "1px solid rgba(16,185,129,0.2)",
+                          }}
+                        >
+                          {IconComponent && <IconComponent className="text-emerald-600" size={20} strokeWidth={1.75} />}
+                        </div>
+                        <p className="text-[10px] text-zinc-400 uppercase tracking-widest mb-1.5 font-semibold">{item.label}</p>
+                        <p className="font-semibold text-zinc-800 text-sm mb-1">{displayValue}</p>
+                        <p className="text-[11px] text-zinc-400 font-light">{item.description}</p>
+                      </motion.div>
+                    );
+                  })
             )}
           </div>
         </div>
@@ -328,7 +331,7 @@ const Contact = () => {
                 Schedule a free 30-minute consultation to discuss your project needs.
               </p>
               <a
-                href="https://wa.me/94740246010?text=Hi%20YarnixLabs%2C%20I%27d%20like%20to%20book%20a%20free%20consultation."
+                href="https://wa.me/94758121435?text=Hi%20YarnixLabs%2C%20I%27d%20like%20to%20book%20a%20free%20consultation."
                 target="_blank"
                 rel="noopener noreferrer"
               >

@@ -80,7 +80,7 @@ const Navbar = ({ topBarVisible = true }: NavbarProps) => {
         <div className="flex items-center gap-4">
           <div className="hidden lg:block">
             <a 
-              href="https://wa.me/94740246010?text=Hello%20YarnixLabs!%20I'd%20like%20to%20book%20a%20free%20consultation%20to%20discuss%20my%20next%20project."
+              href="https://wa.me/94758121435?text=Hello%20YarnixLabs!%20I'd%20like%20to%20book%20a%20free%20consultation%20to%20discuss%20my%20next%20project."
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -146,7 +146,7 @@ const Navbar = ({ topBarVisible = true }: NavbarProps) => {
                 ))}
                 <div className="pt-2">
                   <a 
-                    href="https://wa.me/94740246010?text=Hello%20YarnixLabs!%20I'd%20like%20to%20book%20a%20free%20consultation%20to%20discuss%20my%20next%20project."
+                    href="https://wa.me/94758121435?text=Hello%20YarnixLabs!%20I'd%20like%20to%20book%20a%20free%20consultation%20to%20discuss%20my%20next%20project."
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block w-full"

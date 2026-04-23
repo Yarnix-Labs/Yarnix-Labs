@@ -22,8 +22,8 @@ const TopBar = ({ visible }: TopBarProps) => (
         <a href="mailto:info@yanrnixlabs.com" className="inline-flex items-center gap-1.5 hover:text-white transition-colors">
           <Mail size={12} /> info@yanrnixlabs.com
         </a>
-        <a href="tel:+1234567890" className="inline-flex items-center gap-1.5 hover:text-white transition-colors">
-          <Phone size={12} /> +1 234 567 890
+        <a href="tel:+94758121435" className="inline-flex items-center gap-1.5 hover:text-white transition-colors">
+          <Phone size={12} /> +94 758 121 435
         </a>
       </div>
       <div className="flex items-center gap-2">
